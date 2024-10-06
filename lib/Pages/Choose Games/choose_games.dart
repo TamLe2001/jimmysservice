@@ -7,10 +7,27 @@ class ChooseGames extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Choose your game"),
+        backgroundColor: Colors.red[600],
+        title: const Text(
+          "Elf Etiquette",
+          style: TextStyle(
+            color: Colors.white70,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          ),
+        ),
       ),
-      body: Center(child: Container()),
+      body: Container(
+        color: Colors.green[400],
+        child: const Padding(
+          padding: EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              children: [],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
