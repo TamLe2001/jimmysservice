@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jimmysservice/Pages/Choose%20Games/rules_screen.dart';
+import 'package:jimmysservice/Pages/Rules%20Screen/rules_screen.dart';
 
 void main() {
   runApp(const MyApp());
