@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class RulesBook extends StatelessWidget {
+class RuleBook extends StatelessWidget {
   final List<String> rules;
 
-  const RulesBook({
+  const RuleBook({
     super.key,
     required this.rules,
   });

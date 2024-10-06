@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jimmysservice/Classes/Rules/rulesbook.dart';
+import 'package:jimmysservice/Classes/Rules/rulebook.dart';
 
 class RulesScreen extends StatefulWidget {
   const RulesScreen({super.key});
@@ -44,7 +44,7 @@ class RulesScreenState extends State<RulesScreen> {
       ),
       body: Container(
         color: Colors.green[400],
-        child: RulesBook(
+        child: RuleBook(
           rules: rules,
         ),
       ),
