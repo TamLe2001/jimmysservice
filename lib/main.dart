@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jimmysservice/Pages/Choose%20Games/choose_games.dart';
+import 'package:jimmysservice/Pages/Choose%20Games/rules_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const ChooseGames()),
+                        builder: (context) => const RulesScreen()),
                   );
                 }
               }
