@@ -88,11 +88,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Welcome to Mindo",
+                    "Mindō",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const Text(
-                    "Press B to recall",
+                    "Press B",
                   ),
                 ],
               ),
