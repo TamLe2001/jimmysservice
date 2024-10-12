@@ -56,9 +56,22 @@ class _MyHomePageState extends State<MyHomePage> {
         : null;
   }
 
+  void gotoRuleScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RulesScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => gotoRuleScreen(),
+        child: const Icon(Icons.arrow_forward),
+      ),
       appBar: homeTitle(),
       body: Container(
         color: const Color.fromARGB(255, 204, 30, 30),
@@ -68,40 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
               image: AssetImage("assets/images/frontpage.png"),
             ),
           ),
-          child: Center(
-            child: KeyboardListener(
-              focusNode: _focusNode,
-              autofocus: true,
-              onKeyEvent: (value) {
-                if (value is KeyDownEvent) {
-                  if (value.logicalKey == LogicalKeyboardKey.keyB) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RulesScreen()),
-                    );
-                  }
-                }
-              },
-              child: Card(
-                child: SizedBox(
-                  height: 90,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Mindō",
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
-                      const Text(
-                        "Press B",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          child: const Center(),
         ),
       ),
     );
