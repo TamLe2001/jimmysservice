@@ -59,6 +59,7 @@ flutter:
     - assets/images/santalist.png
     - assets/images/nice.png
     - assets/images/naughty.png
+    - assets/images/frontpage.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
