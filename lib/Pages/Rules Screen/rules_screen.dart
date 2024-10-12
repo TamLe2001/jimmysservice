@@ -1,8 +1,11 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Rules/rulebook.dart';
+import 'package:jimmysservice/Pages/Team%20Screen/team_screen.dart';
 
 class RulesScreen extends StatefulWidget {
-  const RulesScreen({super.key});
+  final AudioPlayer? music;
+  const RulesScreen({this.music, super.key});
 
   @override
   RulesScreenState createState() => RulesScreenState();
@@ -26,11 +29,23 @@ class RulesScreenState extends State<RulesScreen> {
     return MediaQuery.of(context).size.height;
   }
 
+  VoidCallback? gotoTeamScreen() {
+    return () {
+      widget.music?.stop();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TeamScreen(),
+        ),
+      );
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: gotoTeamScreen(),
         child: const Icon(Icons.arrow_forward),
       ),
       appBar: AppBar(
