@@ -3,25 +3,21 @@ import 'package:flutter/material.dart';
 abstract class Player {
   final String name;
   final Color color;
-  final ValueChanged<String>? hoverUpdater;
+  final ValueChanged<String?> hoverUpdater;
 
   Player({
     required this.name,
     required this.color,
-    this.hoverUpdater,
+    required this.hoverUpdater,
   });
 
   Widget playerIcon(String label) {
     return MouseRegion(
       onEnter: (_) {
-        if (hoverUpdater != null) {
-          hoverUpdater!(name);
-        }
+        hoverUpdater(name);
       },
       onExit: (_) {
-        if (hoverUpdater != null) {
-          hoverUpdater!("");
-        }
+        hoverUpdater(null);
       },
       child: CircleAvatar(
         backgroundColor: color,
@@ -42,7 +38,7 @@ class Leader extends Player {
   Leader({
     required super.name,
     required super.color,
-    super.hoverUpdater,
+    required super.hoverUpdater,
   });
 }
 
@@ -50,6 +46,6 @@ class Minion extends Player {
   Minion({
     required super.name,
     required super.color,
-    super.hoverUpdater,
+    required super.hoverUpdater,
   });
 }

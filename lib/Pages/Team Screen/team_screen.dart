@@ -14,9 +14,9 @@ class TeamScreenState extends State<TeamScreen> {
   late ScreenFunctions screenFunctions;
   String hoveredText = '';
 
-  void _updateHoveredText(String text) {
+  void _updateHoveredText([String? text]) {
     setState(() {
-      hoveredText = text;
+      hoveredText = text ?? '';
     });
   }
 

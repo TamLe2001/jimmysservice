@@ -12,10 +12,11 @@ enum TeamSelect {
 
 class TeamFunctions {
   final BuildContext context;
-  final ValueChanged<String>? hoverUpdater;
+  final ValueChanged<String?> hoverUpdater;
   final Function? updateState;
 
-  TeamFunctions({required this.context, this.hoverUpdater, this.updateState});
+  TeamFunctions(
+      {required this.context, required this.hoverUpdater, this.updateState});
 
   Team allPlayers = Team();
   ValueNotifier<int> playerLength = ValueNotifier<int>(0);
@@ -185,14 +186,10 @@ class TeamFunctions {
             child: widget,
           ),
           onDragUpdate: (details) {
-            if (hoverUpdater != null) {
-              hoverUpdater!(player.name);
-            }
+            hoverUpdater(player.name);
           },
           onDragEnd: (details) {
-            if (hoverUpdater != null) {
-              hoverUpdater!("");
-            }
+            hoverUpdater(null);
           },
           onDragCompleted: () {
             allPlayers.remove(player);
@@ -291,6 +288,7 @@ class TeamFunctions {
                                       final minion = Minion(
                                         name: player.name,
                                         color: player.color,
+                                        hoverUpdater: hoverUpdater,
                                       );
                                       players.remove(player);
                                       players.addPlayer(minion);
@@ -300,6 +298,7 @@ class TeamFunctions {
                                   final leader = Leader(
                                     name: player.name,
                                     color: player.color,
+                                    hoverUpdater: hoverUpdater,
                                   );
                                   players.remove(player);
                                   players.insert(0, leader);
@@ -315,6 +314,7 @@ class TeamFunctions {
                                   final minion = Minion(
                                     name: player.name,
                                     color: player.color,
+                                    hoverUpdater: hoverUpdater,
                                   );
                                   players.remove(player);
                                   players.insert(0, minion);
@@ -329,7 +329,10 @@ class TeamFunctions {
                             IconButton(
                               onPressed: () {
                                 final kickedPlayer = Minion(
-                                    name: player.name, color: player.color);
+                                  name: player.name,
+                                  color: player.color,
+                                  hoverUpdater: hoverUpdater,
+                                );
                                 players.remove(player);
 
                                 final playerNames = totalPlayers()
