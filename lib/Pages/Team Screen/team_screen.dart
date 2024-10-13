@@ -12,11 +12,28 @@ class TeamScreen extends StatefulWidget {
 class TeamScreenState extends State<TeamScreen> {
   late TeamFunctions teamFunctions;
   late ScreenFunctions screenFunctions;
+  String hoveredText = '';
+
+  void _updateHoveredText(String text) {
+    setState(() {
+      hoveredText = text;
+    });
+  }
+
+  Function updateState() {
+    return () {
+      setState(() {});
+    };
+  }
 
   @override
   void initState() {
     super.initState();
-    teamFunctions = TeamFunctions(context: context);
+    teamFunctions = TeamFunctions(
+      context: context,
+      hoverUpdater: _updateHoveredText,
+      updateState: updateState(),
+    );
     screenFunctions = ScreenFunctions(context: context);
   }
 
@@ -50,11 +67,25 @@ class TeamScreenState extends State<TeamScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text(
-                              "PlayerName",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Column(
+                              children: [
+                                Text(
+                                  "Seleceted:",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        screenFunctions.screenWidth() * 0.015,
+                                  ),
+                                ),
+                                Text(
+                                  hoveredText,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize:
+                                        screenFunctions.screenWidth() * 0.01,
+                                  ),
+                                ),
+                              ],
                             ),
                             GestureDetector(
                               onTap: teamFunctions.addPlayer(),
@@ -81,7 +112,7 @@ class TeamScreenState extends State<TeamScreen> {
                               ),
                             ),
                             GestureDetector(
-                              onTap: teamFunctions.addPlayer(),
+                              onTap: teamFunctions.teamClear(),
                               child: Center(
                                 child: Card(
                                   child: Padding(

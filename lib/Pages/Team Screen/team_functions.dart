@@ -12,13 +12,79 @@ enum TeamSelect {
 
 class TeamFunctions {
   final BuildContext context;
+  final ValueChanged<String>? hoverUpdater;
+  final Function? updateState;
 
-  TeamFunctions({required this.context});
+  TeamFunctions({required this.context, this.hoverUpdater, this.updateState});
 
-  List<Player> players = [];
+  Team allPlayers = Team();
   ValueNotifier<int> playerLength = ValueNotifier<int>(0);
   Team teamRed = Team();
   Team teamBlue = Team();
+  void superUpdate() {
+    playerLength.value = allPlayers.length();
+
+    if (updateState != null) {
+      updateState!();
+    }
+  }
+
+  Team totalPlayers() {
+    Team team = Team();
+    team.members = teamBlue.members + teamRed.members + allPlayers.members;
+    return team;
+  }
+
+  VoidCallback teamClear() {
+    return () {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Shenron'),
+            content: Text(
+                'I am Shenron. I shall grant you any one wish. Now speak.'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: teamClearTeam(),
+                child: const Text('Clear Teams'),
+              ),
+              TextButton(
+                onPressed: teamClearAll(),
+                child: const Text('Clear ALL'),
+              ),
+            ],
+          );
+        },
+      );
+    };
+  }
+
+  VoidCallback teamClearTeam() {
+    return () {
+      allPlayers.members += teamBlue.members + teamRed.members;
+      teamBlue.clear();
+      teamRed.clear();
+      superUpdate();
+      Navigator.of(context).pop();
+    };
+  }
+
+  VoidCallback teamClearAll() {
+    return () {
+      teamBlue.clear();
+      teamRed.clear();
+      allPlayers.clear();
+      superUpdate();
+      Navigator.of(context).pop();
+    };
+  }
 
   VoidCallback addPlayer() {
     TextEditingController newPlayer = TextEditingController();
@@ -37,7 +103,7 @@ class TeamFunctions {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Enter Player Name'),
+            title: const Text('Add Player'),
             content: TextField(
               controller: newPlayer,
               decoration: const InputDecoration(
@@ -54,17 +120,22 @@ class TeamFunctions {
               TextButton(
                 onPressed: () {
                   if (newPlayer.text.isNotEmpty) {
-                    final playerNames =
-                        players.map((e) => e.name.toLowerCase()).toList();
-
+                    final playerNames = totalPlayers()
+                        .members
+                        .map((e) => e.name.toLowerCase())
+                        .toList();
                     if (!playerNames.contains(newPlayer.text.toLowerCase())) {
-                      players.add(
-                        Minion(name: newPlayer.text, color: getRandomColor()),
+                      allPlayers.addPlayer(
+                        Minion(
+                          name: newPlayer.text,
+                          color: getRandomColor(),
+                          hoverUpdater: hoverUpdater,
+                        ),
                       );
                     }
-                    playerLength.value = players.length;
                     newPlayer.text = '';
                   }
+                  superUpdate();
                   Navigator.of(context).pop();
                 },
                 child: const Text('OK'),
@@ -95,25 +166,38 @@ class TeamFunctions {
     return label.toUpperCase();
   }
 
-  List<Draggable<String>> listBuilder() {
-    List<Draggable<String>> playerIcons = players.map(
+  List<Draggable<Player>> listBuilder() {
+    List<Draggable<Player>> playerIcons = allPlayers.members.map(
       (player) {
         String name = player.name;
         String label = _getUniqueLabel(
           name,
-          players.map((p) => p.name).toList(),
+          allPlayers.members.map((p) => p.name).toList(),
         );
 
         final widget = player.playerIcon(label);
 
-        return Draggable<String>(
-          data: player.name,
+        return Draggable<Player>(
+          data: player,
           feedback: widget,
           childWhenDragging: Opacity(
             opacity: 0.5,
             child: widget,
           ),
-          onDragCompleted: () {},
+          onDragUpdate: (details) {
+            if (hoverUpdater != null) {
+              hoverUpdater!(player.name);
+            }
+          },
+          onDragEnd: (details) {
+            if (hoverUpdater != null) {
+              hoverUpdater!("");
+            }
+          },
+          onDragCompleted: () {
+            allPlayers.remove(player);
+            superUpdate();
+          },
           child: widget,
         );
       },
@@ -124,28 +208,15 @@ class TeamFunctions {
 
   Widget teamScroll(TeamSelect selection) {
     Color? color;
-    List<Player> players = [];
+    Team players = Team();
 
     switch (selection) {
       case TeamSelect.red:
         color = Colors.red;
-        teamRed.members = [
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-          Minion(name: "Lag", color: Colors.red),
-        ];
-        players = teamRed.members;
+        players.members = teamRed.members;
       case TeamSelect.blue:
         color = Colors.blue;
-        players = teamBlue.members;
+        players.members = teamBlue.members;
     }
 
     return Flexible(
@@ -156,21 +227,35 @@ class TeamFunctions {
         child: Align(
           alignment: Alignment.center,
           child: DragTarget(
+            onAcceptWithDetails: (details) {
+              final droppedPlayer = details.data as Player;
+
+              if (selection == TeamSelect.red) {
+                teamRed.addPlayer(droppedPlayer);
+              } else if (selection == TeamSelect.blue) {
+                teamBlue.addPlayer(droppedPlayer);
+              }
+
+              superUpdate();
+            },
             builder: (context, candidateData, rejectedData) {
               return Container(
-                color: Colors.white,
                 height: ScreenFunctions(context: context).screenHeight() * 0.5,
                 width: ScreenFunctions(context: context).screenWidth() * 0.2,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
                 child: Padding(
                   padding: EdgeInsets.all(2),
                   child: ListView.builder(
-                    itemCount: players.length,
+                    itemCount: players.length(),
                     itemBuilder: (context, index) {
-                      final player = players[index];
+                      final player = players.members[index];
 
                       String label = _getUniqueLabel(
                         player.name,
-                        players.map((p) => p.name).toList(),
+                        players.members.map((p) => p.name).toList(),
                       );
 
                       return ListTile(
@@ -198,14 +283,66 @@ class TeamFunctions {
                                 ],
                               ),
                             ),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.star,
+                            if (player is Minion) ...[
+                              IconButton(
+                                onPressed: () {
+                                  for (var player in players.members) {
+                                    if (player is Leader) {
+                                      final minion = Minion(
+                                        name: player.name,
+                                        color: player.color,
+                                      );
+                                      players.remove(player);
+                                      players.addPlayer(minion);
+                                    }
+                                  }
+
+                                  final leader = Leader(
+                                    name: player.name,
+                                    color: player.color,
+                                  );
+                                  players.remove(player);
+                                  players.insert(0, leader);
+                                  superUpdate();
+                                },
+                                icon: const Icon(
+                                  Icons.star_border,
+                                ),
                               ),
-                            ),
+                            ] else if (player is Leader) ...[
+                              IconButton(
+                                onPressed: () {
+                                  final minion = Minion(
+                                    name: player.name,
+                                    color: player.color,
+                                  );
+                                  players.remove(player);
+                                  players.insert(0, minion);
+                                  superUpdate();
+                                },
+                                icon: const Icon(
+                                  Icons.star,
+                                  color: Colors.yellow,
+                                ),
+                              ),
+                            ],
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                final kickedPlayer = Minion(
+                                    name: player.name, color: player.color);
+                                players.remove(player);
+
+                                final playerNames = totalPlayers()
+                                    .members
+                                    .map((e) => e.name.toLowerCase())
+                                    .toList();
+
+                                if (!playerNames
+                                    .contains(player.name.toLowerCase())) {
+                                  allPlayers.addPlayer(kickedPlayer);
+                                }
+                                superUpdate();
+                              },
                               icon: const Icon(
                                 Icons.close,
                               ),
