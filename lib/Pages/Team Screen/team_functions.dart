@@ -16,6 +16,16 @@ class TeamFunctions {
 
   VoidCallback addPlayer() {
     TextEditingController newPlayer = TextEditingController();
+    Color getRandomColor() {
+      Random random = Random();
+      return Color.fromARGB(
+        255,
+        random.nextInt(256),
+        random.nextInt(256),
+        random.nextInt(256),
+      );
+    }
+
     return () {
       showDialog(
         context: context,
@@ -39,12 +49,10 @@ class TeamFunctions {
                 onPressed: () {
                   if (newPlayer.text.isNotEmpty) {
                     players.add(
-                      Minion(
-                        name: newPlayer.text,
-                      ),
+                      Minion(name: newPlayer.text, color: getRandomColor()),
                     );
-                    playerLength.value = players.length; // Update ValueNotifier
-                    newPlayer.text = ''; // Reset text field
+                    playerLength.value = players.length;
+                    newPlayer.text = '';
                   }
                   Navigator.of(context).pop();
                 },
@@ -58,16 +66,6 @@ class TeamFunctions {
   }
 
   List<Draggable<String>> listBuilder() {
-    Color getRandomColor() {
-      Random random = Random();
-      return Color.fromARGB(
-        255,
-        random.nextInt(256),
-        random.nextInt(256),
-        random.nextInt(256),
-      );
-    }
-
     CircleAvatar playerIcon(String label, Color color) {
       return CircleAvatar(
         backgroundColor: color,
@@ -82,33 +80,28 @@ class TeamFunctions {
       );
     }
 
-    Map<String, int> firstLetterCount = {};
-    for (var player in players) {
-      String firstLetter =
-          player.name.isNotEmpty ? player.name.substring(0, 1) : "?";
-      firstLetterCount[firstLetter] = (firstLetterCount[firstLetter] ?? 0) + 1;
+    String getUniqueLabel(String name, List<String> allNames) {
+      String lowerCaseName = name.toLowerCase();
+      List<String> lowerCaseNames =
+          allNames.map((n) => n.toLowerCase()).toList();
+
+      String label = lowerCaseName.substring(0, 1);
+      int i = 1;
+
+      while (lowerCaseNames.where((n) => n.startsWith(label)).length > 1 &&
+          i < name.length) {
+        i++;
+        label = lowerCaseName.substring(0, i);
+      }
+
+      return label.toUpperCase();
     }
 
     List<Draggable<String>> playerIcons = players.map((player) {
       String name = player.name;
-      String label = "";
-      Color randomColor = getRandomColor();
+      String label = getUniqueLabel(name, players.map((p) => p.name).toList());
 
-      if (name.isNotEmpty) {
-        String firstLetter = name.substring(0, 1);
-
-        if (firstLetterCount[firstLetter]! == 2) {
-          label = name.length > 1 ? name.substring(0, 2) : firstLetter;
-        } else if (firstLetterCount[firstLetter]! > 2) {
-          label = name.length > 2 ? name.substring(0, 3) : name;
-        } else {
-          label = firstLetter;
-        }
-      } else {
-        label = "?";
-      }
-
-      final widget = playerIcon(label, randomColor);
+      final widget = playerIcon(label, player.color);
 
       return Draggable<String>(
         data: player.name,
