@@ -92,6 +92,9 @@ class TeamFunctions {
           i < name.length) {
         i++;
         label = lowerCaseName.substring(0, i);
+        if (i == 3) {
+          break;
+        }
       }
 
       return label.toUpperCase();
