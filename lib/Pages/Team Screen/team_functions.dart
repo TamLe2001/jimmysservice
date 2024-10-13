@@ -132,11 +132,21 @@ class TeamFunctions {
 
   Widget teamScroll(TeamSelect selection) {
     Color? color;
+    List<Player> players = [];
+
     switch (selection) {
       case TeamSelect.red:
         color = Colors.red;
+        teamRed.members = [
+          Minion(
+            name: "Lag",
+            color: Colors.red,
+          ),
+        ];
+        players = teamRed.members;
       case TeamSelect.blue:
         color = Colors.blue;
+        players = teamBlue.members;
     }
 
     return Flexible(
@@ -152,8 +162,11 @@ class TeamFunctions {
                 color: Colors.white,
                 height: ScreenFunctions(context: context).screenHeight() * 0.5,
                 width: ScreenFunctions(context: context).screenWidth() * 0.2,
-                child: SingleChildScrollView(
-                  child: Text("Scrollable content"),
+                child: ListView.builder(
+                  itemCount: players.length,
+                  itemBuilder: (context, index) {
+                    final player = players[index];
+                  },
                 ),
               );
             },

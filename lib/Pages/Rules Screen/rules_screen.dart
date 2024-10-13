@@ -2,7 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Rules/rulebook.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
-import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_screen.dart';
 
 class RulesScreen extends StatefulWidget {
