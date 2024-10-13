@@ -8,28 +8,32 @@ abstract class Player {
     required this.name,
     required this.color,
   });
+
+  CircleAvatar playerIcon(String label) {
+    return CircleAvatar(
+      backgroundColor: color,
+      radius: 30,
+      child: Text(
+        label.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 24,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
 }
 
-class Leader implements Player {
-  @override
-  final String name;
-  @override
-  final Color color;
-
+class Leader extends Player {
   Leader({
-    required this.name,
-    required this.color,
+    required super.name,
+    required super.color,
   });
 }
 
-class Minion implements Player {
-  @override
-  final String name;
-  @override
-  final Color color;
-
+class Minion extends Player {
   Minion({
-    required this.name,
-    required this.color,
+    required super.name,
+    required super.color,
   });
 }

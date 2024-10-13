@@ -54,9 +54,14 @@ class TeamFunctions {
               TextButton(
                 onPressed: () {
                   if (newPlayer.text.isNotEmpty) {
-                    players.add(
-                      Minion(name: newPlayer.text, color: getRandomColor()),
-                    );
+                    final playerNames =
+                        players.map((e) => e.name.toLowerCase()).toList();
+
+                    if (!playerNames.contains(newPlayer.text.toLowerCase())) {
+                      players.add(
+                        Minion(name: newPlayer.text, color: getRandomColor()),
+                      );
+                    }
                     playerLength.value = players.length;
                     newPlayer.text = '';
                   }
@@ -71,48 +76,35 @@ class TeamFunctions {
     };
   }
 
-  List<Draggable<String>> listBuilder() {
-    CircleAvatar playerIcon(String label, Color color) {
-      return CircleAvatar(
-        backgroundColor: color,
-        radius: 30,
-        child: Text(
-          label.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 24,
-            color: Colors.black,
-          ),
-        ),
-      );
-    }
+  String _getUniqueLabel(String name, List<String> allNames) {
+    String lowerCaseName = name.toLowerCase();
+    List<String> lowerCaseNames = allNames.map((n) => n.toLowerCase()).toList();
 
-    String getUniqueLabel(String name, List<String> allNames) {
-      String lowerCaseName = name.toLowerCase();
-      List<String> lowerCaseNames =
-          allNames.map((n) => n.toLowerCase()).toList();
+    String label = lowerCaseName.substring(0, 1);
+    int i = 1;
 
-      String label = lowerCaseName.substring(0, 1);
-      int i = 1;
-
-      while (lowerCaseNames.where((n) => n.startsWith(label)).length > 1 &&
-          i < name.length) {
-        i++;
-        label = lowerCaseName.substring(0, i);
-        if (i == 3) {
-          break;
-        }
+    while (lowerCaseNames.where((n) => n.startsWith(label)).length > 1 &&
+        i < name.length) {
+      i++;
+      label = lowerCaseName.substring(0, i);
+      if (i == 3) {
+        break;
       }
-
-      return label.toUpperCase();
     }
 
+    return label.toUpperCase();
+  }
+
+  List<Draggable<String>> listBuilder() {
     List<Draggable<String>> playerIcons = players.map(
       (player) {
         String name = player.name;
-        String label =
-            getUniqueLabel(name, players.map((p) => p.name).toList());
+        String label = _getUniqueLabel(
+          name,
+          players.map((p) => p.name).toList(),
+        );
 
-        final widget = playerIcon(label, player.color);
+        final widget = player.playerIcon(label);
 
         return Draggable<String>(
           data: player.name,
@@ -138,10 +130,17 @@ class TeamFunctions {
       case TeamSelect.red:
         color = Colors.red;
         teamRed.members = [
-          Minion(
-            name: "Lag",
-            color: Colors.red,
-          ),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
+          Minion(name: "Lag", color: Colors.red),
         ];
         players = teamRed.members;
       case TeamSelect.blue:
@@ -162,11 +161,60 @@ class TeamFunctions {
                 color: Colors.white,
                 height: ScreenFunctions(context: context).screenHeight() * 0.5,
                 width: ScreenFunctions(context: context).screenWidth() * 0.2,
-                child: ListView.builder(
-                  itemCount: players.length,
-                  itemBuilder: (context, index) {
-                    final player = players[index];
-                  },
+                child: Padding(
+                  padding: EdgeInsets.all(2),
+                  child: ListView.builder(
+                    itemCount: players.length,
+                    itemBuilder: (context, index) {
+                      final player = players[index];
+
+                      String label = _getUniqueLabel(
+                        player.name,
+                        players.map((p) => p.name).toList(),
+                      );
+
+                      return ListTile(
+                        leading: player.playerIcon(label),
+                        title: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          player.name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.star,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.close,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               );
             },
