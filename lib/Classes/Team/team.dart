@@ -4,6 +4,10 @@ class Team {
   List<Player> members;
 
   Team({
-    required this.members,
+    this.members = const [],
   });
+
+  void addmember(Player player) {
+    members.add(player);
+  }
 }
