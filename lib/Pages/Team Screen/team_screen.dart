@@ -88,7 +88,7 @@ class TeamScreenState extends State<TeamScreen> {
                               ],
                             ),
                             GestureDetector(
-                              onTap: teamFunctions.addPlayer(),
+                              onTap: teamFunctions.randomizeTeams(),
                               child: Center(
                                 child: Card(
                                   child: Padding(

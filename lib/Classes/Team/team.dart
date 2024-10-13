@@ -8,10 +8,8 @@ class Team {
   }
 
   void addPlayer(Player player) {
-    if (!(members
-        .map((e) => e.name.toLowerCase())
-        .toList()
-        .contains(player.name.toLowerCase()))) {
+    if (!members
+        .any((e) => e.name.toLowerCase() == player.name.toLowerCase())) {
       members.add(player);
     }
   }
@@ -26,5 +24,30 @@ class Team {
 
   void clear() {
     members.clear();
+  }
+
+  void makeLeader(Player player) {
+    members.removeWhere((p) => p is Leader);
+
+    final leader = Leader(
+      name: player.name,
+      color: player.color,
+      hoverUpdater: player.hoverUpdater,
+    );
+
+    remove(player);
+    insert(0, leader);
+  }
+
+  void makeMinion(Player player) {
+    if (player is Leader) {
+      final minion = Minion(
+        name: player.name,
+        color: player.color,
+        hoverUpdater: player.hoverUpdater,
+      );
+      remove(player);
+      insert(0, minion);
+    }
   }
 }
