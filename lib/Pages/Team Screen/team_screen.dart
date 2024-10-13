@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 class TeamScreen extends StatefulWidget {
@@ -10,19 +11,13 @@ class TeamScreen extends StatefulWidget {
 
 class TeamScreenState extends State<TeamScreen> {
   late TeamFunctions teamFunctions;
+  late ScreenFunctions screenFunctions;
 
   @override
   void initState() {
     super.initState();
     teamFunctions = TeamFunctions(context: context);
-  }
-
-  double screenWidth() {
-    return MediaQuery.of(context).size.width;
-  }
-
-  double screenHeight() {
-    return MediaQuery.of(context).size.height;
+    screenFunctions = ScreenFunctions(context: context);
   }
 
   @override
@@ -48,24 +43,71 @@ class TeamScreenState extends State<TeamScreen> {
                 Flexible(
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Container(
-                          color: Colors.red,
-                          height: double.infinity,
-                          width: double.infinity,
-                        ),
-                      ),
+                      teamFunctions.teamScroll(TeamSelect.red),
                       Container(
                         color: Colors.green,
-                        width: screenWidth() * 0.2,
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.blue,
-                          height: double.infinity,
-                          width: double.infinity,
+                        width: screenFunctions.screenWidth() * 0.2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              "PlayerName",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: teamFunctions.addPlayer(),
+                              child: Center(
+                                child: Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          screenFunctions.screenWidth() * 0.02,
+                                      vertical:
+                                          screenFunctions.screenHeight() * 0.01,
+                                    ),
+                                    child: Text(
+                                      "Randomize",
+                                      style: TextStyle(
+                                        fontSize:
+                                            screenFunctions.screenWidth() *
+                                                0.016,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: teamFunctions.addPlayer(),
+                              child: Center(
+                                child: Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          screenFunctions.screenWidth() * 0.02,
+                                      vertical:
+                                          screenFunctions.screenHeight() * 0.01,
+                                    ),
+                                    child: Text(
+                                      "Clear Teams",
+                                      style: TextStyle(
+                                        fontSize:
+                                            screenFunctions.screenWidth() *
+                                                0.016,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
+                      teamFunctions.teamScroll(TeamSelect.blue),
                     ],
                   ),
                 ),
@@ -78,13 +120,13 @@ class TeamScreenState extends State<TeamScreen> {
                       child: Card(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth() * 0.02,
-                            vertical: screenHeight() * 0.001,
+                            horizontal: screenFunctions.screenWidth() * 0.02,
+                            vertical: screenFunctions.screenHeight() * 0.001,
                           ),
                           child: Text(
                             "Players: $value",
                             style: TextStyle(
-                              fontSize: screenWidth() * 0.016,
+                              fontSize: screenFunctions.screenWidth() * 0.016,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -94,7 +136,7 @@ class TeamScreenState extends State<TeamScreen> {
                   ),
                 ),
                 Container(
-                  height: screenHeight() * 0.23,
+                  height: screenFunctions.screenHeight() * 0.23,
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(10),

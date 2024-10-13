@@ -2,7 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Player/player.dart';
+import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Classes/Team/team.dart';
+
+enum TeamSelect {
+  red,
+  blue,
+}
 
 class TeamFunctions {
   final BuildContext context;
@@ -11,8 +17,8 @@ class TeamFunctions {
 
   List<Player> players = [];
   ValueNotifier<int> playerLength = ValueNotifier<int>(0);
-  Team teamA = Team();
-  Team teamB = Team();
+  Team teamRed = Team();
+  Team teamBlue = Team();
 
   VoidCallback addPlayer() {
     TextEditingController newPlayer = TextEditingController();
@@ -74,7 +80,7 @@ class TeamFunctions {
           label.toUpperCase(),
           style: const TextStyle(
             fontSize: 24,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
       );
@@ -100,24 +106,60 @@ class TeamFunctions {
       return label.toUpperCase();
     }
 
-    List<Draggable<String>> playerIcons = players.map((player) {
-      String name = player.name;
-      String label = getUniqueLabel(name, players.map((p) => p.name).toList());
+    List<Draggable<String>> playerIcons = players.map(
+      (player) {
+        String name = player.name;
+        String label =
+            getUniqueLabel(name, players.map((p) => p.name).toList());
 
-      final widget = playerIcon(label, player.color);
+        final widget = playerIcon(label, player.color);
 
-      return Draggable<String>(
-        data: player.name,
-        feedback: widget,
-        childWhenDragging: Opacity(
-          opacity: 0.5,
+        return Draggable<String>(
+          data: player.name,
+          feedback: widget,
+          childWhenDragging: Opacity(
+            opacity: 0.5,
+            child: widget,
+          ),
+          onDragCompleted: () {},
           child: widget,
-        ),
-        onDragCompleted: () {},
-        child: widget,
-      );
-    }).toList();
+        );
+      },
+    ).toList();
 
     return playerIcons;
+  }
+
+  Widget teamScroll(TeamSelect selection) {
+    Color? color;
+    switch (selection) {
+      case TeamSelect.red:
+        color = Colors.red;
+      case TeamSelect.blue:
+        color = Colors.blue;
+    }
+
+    return Flexible(
+      child: Container(
+        color: color,
+        height: double.infinity,
+        width: double.infinity,
+        child: Align(
+          alignment: Alignment.center,
+          child: DragTarget(
+            builder: (context, candidateData, rejectedData) {
+              return Container(
+                color: Colors.white,
+                height: ScreenFunctions(context: context).screenHeight() * 0.5,
+                width: ScreenFunctions(context: context).screenWidth() * 0.2,
+                child: SingleChildScrollView(
+                  child: Text("Scrollable content"),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

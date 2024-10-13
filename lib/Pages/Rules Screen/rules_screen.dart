@@ -1,6 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Rules/rulebook.dart';
+import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
+import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_screen.dart';
 
 class RulesScreen extends StatefulWidget {
@@ -21,12 +23,12 @@ class RulesScreenState extends State<RulesScreen> {
     "The team with the fewest points will end up on Santa's naughty list AND BE PUNISHED!"
   ];
 
-  double screenWidth() {
-    return MediaQuery.of(context).size.width;
-  }
+  late ScreenFunctions screenFunctions;
 
-  double screenHeight() {
-    return MediaQuery.of(context).size.height;
+  @override
+  void initState() {
+    super.initState();
+    screenFunctions = ScreenFunctions(context: context);
   }
 
   VoidCallback? gotoTeamScreen() {
@@ -74,22 +76,22 @@ class RulesScreenState extends State<RulesScreen> {
                 children: [
                   Image.asset('assets/images/santalist.png'),
                   Positioned(
-                    left: screenWidth() * 0.2,
-                    top: screenHeight() * 0.4,
+                    left: screenFunctions.screenWidth() * 0.2,
+                    top: screenFunctions.screenHeight() * 0.4,
                     child: Image.asset(
                       'assets/images/nice.png',
-                      width: screenWidth() * 0.3,
-                      height: screenHeight() * 0.3,
+                      width: screenFunctions.screenWidth() * 0.3,
+                      height: screenFunctions.screenHeight() * 0.3,
                       fit: BoxFit.contain,
                     ),
                   ),
                   Positioned(
-                    left: screenHeight() * 0,
-                    top: screenHeight() * 0.4,
+                    left: screenFunctions.screenHeight() * 0,
+                    top: screenFunctions.screenHeight() * 0.4,
                     child: Image.asset(
                       'assets/images/naughty.png',
-                      width: screenWidth() * 0.3,
-                      height: screenHeight() * 0.3,
+                      width: screenFunctions.screenWidth() * 0.3,
+                      height: screenFunctions.screenHeight() * 0.3,
                       fit: BoxFit.contain,
                     ),
                   )
