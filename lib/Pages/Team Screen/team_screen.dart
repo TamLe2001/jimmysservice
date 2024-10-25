@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jimmysservice/Pages/Cutscene%20Video/cutscene.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
@@ -37,9 +38,36 @@ class TeamScreenState extends State<TeamScreen> {
     screenFunctions = ScreenFunctions(context: context);
   }
 
+  VoidCallback? gotoCutScene() {
+    if (teamFunctions.teamBlue.members.isNotEmpty &&
+        teamFunctions.teamRed.members.isNotEmpty) {
+      return () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Cutscene(),
+          ),
+        );
+      };
+    }
+    return () {
+      //TODO: remove this when production code is finished
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Cutscene(),
+        ),
+      );
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: gotoCutScene(),
+        child: const Icon(Icons.arrow_forward),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.red[600],
         title: const Text(
