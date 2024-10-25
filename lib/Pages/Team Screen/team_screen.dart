@@ -51,7 +51,6 @@ class TeamScreenState extends State<TeamScreen> {
       };
     }
     return () {
-      //TODO: remove this when production code is finished
       Navigator.push(
         context,
         MaterialPageRoute(
