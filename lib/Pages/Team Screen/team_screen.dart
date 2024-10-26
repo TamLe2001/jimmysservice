@@ -23,7 +23,10 @@ class TeamScreenState extends State<TeamScreen> {
 
   Function updateState() {
     return () {
-      setState(() {});
+      setState(() {
+        teamFunctions.teamBlue.members = teamFunctions.teamBlue.members;
+        teamFunctions.teamRed.members = teamFunctions.teamRed.members;
+      });
     };
   }
 

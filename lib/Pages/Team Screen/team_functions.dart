@@ -22,9 +22,9 @@ class TeamFunctions {
   ValueNotifier<int> playerLength = ValueNotifier<int>(0);
   Team teamRed = Team();
   Team teamBlue = Team();
+
   void superUpdate() {
     playerLength.value = allPlayers.length();
-
     if (updateState != null) {
       updateState!();
     }
@@ -89,16 +89,11 @@ class TeamFunctions {
 
   VoidCallback randomizeTeams() {
     return () {
-      // Clear the teams and move all players back to allPlayers
-      teamClearTeam();
+      teamClearTeam(); // Move all players back to allPlayers
 
-      // Shuffle all players and distribute them evenly between the teams
-      List<Player> allMembers = List.from(allPlayers.members);
-      allMembers.shuffle();
+      List<Player> allMembers = List.from(allPlayers.members)..shuffle();
+      allPlayers.clear();
 
-      allPlayers.clear(); // Clear allPlayers after shuffle
-
-      // Distribute players between red and blue teams
       for (int i = 0; i < allMembers.length; i++) {
         if (i.isEven) {
           teamRed.addPlayer(allMembers[i]);
@@ -107,22 +102,17 @@ class TeamFunctions {
         }
       }
 
-      // Assign a random leader to teamRed
+      // Randomly assign a Leader
       if (teamRed.members.isNotEmpty) {
-        int randomRedLeaderIndex = Random().nextInt(teamRed.members.length);
-        Player randomRedPlayer = teamRed.members[randomRedLeaderIndex];
-        teamRed.makeLeader(randomRedPlayer);
+        teamRed.makeLeader(
+            teamRed.members[Random().nextInt(teamRed.members.length)]);
       }
-
-      // Assign a random leader to teamBlue
       if (teamBlue.members.isNotEmpty) {
-        int randomBlueLeaderIndex = Random().nextInt(teamBlue.members.length);
-        Player randomBluePlayer = teamBlue.members[randomBlueLeaderIndex];
-        teamBlue.makeLeader(randomBluePlayer);
+        teamBlue.makeLeader(
+            teamBlue.members[Random().nextInt(teamBlue.members.length)]);
       }
 
-      // Update the UI
-      superUpdate();
+      superUpdate(); // Update the UI
     };
   }
 
@@ -249,10 +239,10 @@ class TeamFunctions {
     switch (selection) {
       case TeamSelect.red:
         color = Colors.red;
-        players.members = teamRed.members;
+        players = teamRed;
       case TeamSelect.blue:
         color = Colors.blue;
-        players.members = teamBlue.members;
+        players = teamBlue;
     }
 
     return Flexible(
@@ -265,13 +255,7 @@ class TeamFunctions {
           child: DragTarget(
             onAcceptWithDetails: (details) {
               final droppedPlayer = details.data as Player;
-
-              if (selection == TeamSelect.red) {
-                teamRed.addPlayer(droppedPlayer);
-              } else if (selection == TeamSelect.blue) {
-                teamBlue.addPlayer(droppedPlayer);
-              }
-
+              players.addPlayer(droppedPlayer);
               superUpdate();
             },
             builder: (context, candidateData, rejectedData) {
@@ -319,28 +303,22 @@ class TeamFunctions {
                                 ],
                               ),
                             ),
-                            if (player is Minion) ...[
-                              IconButton(
-                                onPressed: () {
+                            IconButton(
+                              onPressed: () {
+                                if (player is Minion) {
                                   players.makeLeader(player);
-                                  superUpdate();
-                                },
-                                icon: const Icon(
-                                  Icons.star_border,
-                                ),
-                              ),
-                            ] else if (player is Leader) ...[
-                              IconButton(
-                                onPressed: () {
+                                } else if (player is Leader) {
                                   players.makeMinion(player);
-                                  superUpdate();
-                                },
-                                icon: const Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                ),
+                                }
+                                superUpdate();
+                              },
+                              icon: Icon(
+                                player is Leader
+                                    ? Icons.star
+                                    : Icons.star_border,
+                                color: player is Leader ? Colors.yellow : null,
                               ),
-                            ],
+                            ),
                             IconButton(
                               onPressed: () {
                                 final kickedPlayer = Minion(

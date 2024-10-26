@@ -40,6 +40,14 @@ class Leader extends Player {
     required super.color,
     required super.hoverUpdater,
   });
+
+  Minion toMinion() {
+    return Minion(
+      name: name,
+      color: color,
+      hoverUpdater: hoverUpdater,
+    );
+  }
 }
 
 class Minion extends Player {
@@ -48,4 +56,12 @@ class Minion extends Player {
     required super.color,
     required super.hoverUpdater,
   });
+
+  Leader toLeader() {
+    return Leader(
+      name: name,
+      color: color,
+      hoverUpdater: hoverUpdater,
+    );
+  }
 }

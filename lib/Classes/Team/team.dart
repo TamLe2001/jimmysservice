@@ -18,36 +18,28 @@ class Team {
     members.remove(player);
   }
 
-  void insert(int index, Player element) {
-    members.insert(index, element);
-  }
-
   void clear() {
     members.clear();
   }
 
   void makeLeader(Player player) {
-    members.removeWhere((p) => p is Leader);
-
-    final leader = Leader(
-      name: player.name,
-      color: player.color,
-      hoverUpdater: player.hoverUpdater,
-    );
-
-    remove(player);
-    insert(0, leader);
+    members = members.map((e) {
+      if (e != player && e is Leader) {
+        return e.toMinion();
+      }
+      if (e == player && e is Minion) {
+        return e.toLeader();
+      }
+      return e;
+    }).toList();
   }
 
   void makeMinion(Player player) {
-    if (player is Leader) {
-      final minion = Minion(
-        name: player.name,
-        color: player.color,
-        hoverUpdater: player.hoverUpdater,
-      );
-      remove(player);
-      insert(0, minion);
-    }
+    members = members.map((e) {
+      if (e == player && e is Leader) {
+        return e.toMinion();
+      }
+      return e;
+    }).toList();
   }
 }
