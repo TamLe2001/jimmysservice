@@ -39,7 +39,14 @@ class GameScreenState extends State<GameScreen> {
       Question(question: "HEj", points: 800),
       Question(question: "HEj", points: 1000),
     ]),
-    Category(category: "Nostalgia", questions: [
+    Category(category: "2000's Nostalgia", questions: [
+      Question(question: "HEj", points: 200),
+      Question(question: "HEj", points: 400),
+      Question(question: "HEj", points: 600),
+      Question(question: "HEj", points: 800),
+      Question(question: "HEj", points: 1000),
+    ]),
+    Category(category: "Korean Pop Culture", questions: [
       Question(question: "HEj", points: 200),
       Question(question: "HEj", points: 400),
       Question(question: "HEj", points: 600),
