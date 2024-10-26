@@ -1,17 +1,20 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
+import 'package:jimmysservice/Pages/Game%20Screen/question_screen.dart';
 
 class Question extends StatelessWidget {
   final String question;
   final int points;
   final String? hint;
-  final String? image;
-  final AudioPlayer? music;
+  final Image? image;
+  final AssetSource? music;
+  final String answer;
 
   const Question({
     required this.question,
     required this.points,
+    required this.answer,
     this.hint,
     this.image,
     this.music,
@@ -23,6 +26,16 @@ class Question extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10),
       child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QuestionScreen(
+                question: this,
+              ),
+            ),
+          );
+        },
         child: Container(
           color: Colors.orange,
           height: ScreenFunctions(context: context).screenHeight() * 0.1,
