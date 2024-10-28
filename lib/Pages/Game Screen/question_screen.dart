@@ -12,6 +12,8 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class QuestionScreenState extends State<QuestionScreen> {
+  bool revealAnswer = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +29,13 @@ class QuestionScreenState extends State<QuestionScreen> {
             Navigator.pop(context);
           },
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child:
+            revealAnswer ? Icon(Icons.arrow_back) : Icon(Icons.arrow_forward),
+        onPressed: () => setState(() {
+          revealAnswer = !revealAnswer;
+        }),
       ),
       body: Container(
         color: Colors.red,
@@ -56,15 +65,17 @@ class QuestionScreenState extends State<QuestionScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   widget.question.content(context),
-                  Text(
-                    widget.question.answer,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize:
-                            ScreenFunctions(context: context).screenHeight() *
-                                0.025,
-                        color: Colors.white),
-                  ),
+                  if (revealAnswer == true) ...[
+                    Text(
+                      widget.question.answer,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize:
+                              ScreenFunctions(context: context).screenHeight() *
+                                  0.025,
+                          color: Colors.white),
+                    ),
+                  ],
                 ],
               ),
               SizedBox()
