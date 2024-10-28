@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Categories/category.dart';
 import 'package:jimmysservice/Classes/Categories/question.dart';
@@ -13,57 +12,76 @@ class GameScreen extends StatefulWidget {
 class GameScreenState extends State<GameScreen> {
   final List<Category> categories = [
     Category(category: "Combined people", questions: [
-      Question(
-          question: "Who am I?", points: 200, answer: "Kevin Luu & Philip"),
-      Question(question: "Who am I?", points: 400, answer: "Sofie & Danny"),
-      Question(
-          question: "Who am I?", points: 600, answer: "Casper & Johnny Sins"),
-      Question(
-          question: "Who am I?", points: 800, answer: "Abdi & James Charles"),
-      Question(
-          question: "Who am I?",
-          points: 1000,
-          answer: "Helene, Jeanete & Marie"),
+      ImageQuestion(
+        question: "Who am I?",
+        points: 200,
+        answer: "Kevin Luu & Philip",
+        path: "guesswho1.png",
+      ),
+      ImageQuestion(
+        question: "Who am I?",
+        points: 400,
+        answer: "Sofie & Danny",
+        path: "guesswho2.png",
+      ),
+      ImageQuestion(
+        question: "Who am I?",
+        points: 600,
+        answer: "Casper & Johnny Sins",
+        path: "guesswho3.png",
+      ),
+      ImageQuestion(
+        question: "Who am I?",
+        points: 800,
+        answer: "Abdi & James Charles",
+        path: "guesswho4.png",
+      ),
+      ImageQuestion(
+        question: "Who am I?",
+        points: 1000,
+        answer: "Helene, Jeanete & Marie",
+        path: "guesswho5.png",
+      ),
     ]),
     Category(category: "Gaming", questions: [
-      Question(question: "HEj", points: 200, answer: "gay"),
-      Question(question: "HEj", points: 400, answer: "gay"),
-      Question(question: "HEj", points: 600, answer: "gay"),
-      Question(question: "HEj", points: 800, answer: "gay"),
-      Question(question: "HEj", points: 1000, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 200, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
     ]),
     Category(category: "Christmas Songs", questions: [
-      Question(
+      AudioQuestion(
         question: "What Christmas song is this?",
         points: 200,
         answer: "Santa tell me by Ariana Grande",
-        music: AssetSource("audio/santatellme.mp3"),
+        path: "santatellme.mp3",
       ),
-      Question(question: "HEj", points: 400, answer: "gay"),
-      Question(question: "HEj", points: 600, answer: "gay"),
-      Question(question: "HEj", points: 800, answer: "gay"),
-      Question(question: "HEj", points: 1000, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
     ]),
     Category(category: "Anime", questions: [
-      Question(question: "HEj", points: 200, answer: "gay"),
-      Question(question: "HEj", points: 400, answer: "gay"),
-      Question(question: "HEj", points: 600, answer: "gay"),
-      Question(question: "HEj", points: 800, answer: "gay"),
-      Question(question: "HEj", points: 1000, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 200, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
     ]),
     Category(category: "2000's Nostalgia", questions: [
-      Question(question: "HEj", points: 200, answer: "gay"),
-      Question(question: "HEj", points: 400, answer: "gay"),
-      Question(question: "HEj", points: 600, answer: "gay"),
-      Question(question: "HEj", points: 800, answer: "gay"),
-      Question(question: "HEj", points: 1000, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 200, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
     ]),
     Category(category: "Korean Pop Culture", questions: [
-      Question(question: "HEj", points: 200, answer: "gay"),
-      Question(question: "HEj", points: 400, answer: "gay"),
-      Question(question: "HEj", points: 600, answer: "gay"),
-      Question(question: "HEj", points: 800, answer: "gay"),
-      Question(question: "HEj", points: 1000, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 200, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+      ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
     ]),
   ];
 

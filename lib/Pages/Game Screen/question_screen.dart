@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Categories/question.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
@@ -18,6 +17,16 @@ class QuestionScreenState extends State<QuestionScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            if (widget.question is AudioQuestion) {
+              AudioQuestion audio = widget.question as AudioQuestion;
+              audio.audioStop();
+            }
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Container(
         color: Colors.red,
@@ -46,25 +55,7 @@ class QuestionScreenState extends State<QuestionScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  if (widget.question.image != null) ...[
-                    widget.question.image!
-                  ] else if (widget.question.music != null) ...[
-                    GestureDetector(
-                      onTap: () async {
-                        AssetSource? myPath = widget.question.music;
-                        var audioPlayer = AudioPlayer();
-                        if (myPath != null) {
-                          await audioPlayer.setSource(myPath);
-                          audioPlayer.play(myPath);
-                        }
-                      },
-                      child: Icon(
-                        Icons.play_arrow,
-                        size: ScreenFunctions(context: context).screenHeight() *
-                            0.5,
-                      ),
-                    ),
-                  ],
+                  widget.question.content(context),
                   Text(
                     widget.question.answer,
                     style: TextStyle(
