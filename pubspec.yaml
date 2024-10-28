@@ -61,6 +61,11 @@ flutter:
     - assets/images/nice.png
     - assets/images/naughty.png
     - assets/images/frontpage.png
+    - assets/images/guesswho1.png
+    - assets/images/guesswho2.png
+    - assets/images/guesswho3.png
+    - assets/images/guesswho4.png
+    - assets/images/guesswho5.png
     - assets/audio/background_music.mp3
     - assets/audio/santatellme.mp3
 

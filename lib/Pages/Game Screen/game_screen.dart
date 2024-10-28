@@ -13,11 +13,17 @@ class GameScreen extends StatefulWidget {
 class GameScreenState extends State<GameScreen> {
   final List<Category> categories = [
     Category(category: "Combined people", questions: [
-      Question(question: "Who am I?", points: 200, answer: "gay"),
-      Question(question: "Who am I?", points: 400, answer: "gay"),
-      Question(question: "Who am I?", points: 600, answer: "gay"),
-      Question(question: "Who am I?", points: 800, answer: "gay"),
-      Question(question: "Who am I?", points: 1000, answer: "gay"),
+      Question(
+          question: "Who am I?", points: 200, answer: "Kevin Luu & Philip"),
+      Question(question: "Who am I?", points: 400, answer: "Sofie & Danny"),
+      Question(
+          question: "Who am I?", points: 600, answer: "Casper & Johnny Sins"),
+      Question(
+          question: "Who am I?", points: 800, answer: "Abdi & James Charles"),
+      Question(
+          question: "Who am I?",
+          points: 1000,
+          answer: "Helene, Jeanete & Marie"),
     ]),
     Category(category: "Gaming", questions: [
       Question(question: "HEj", points: 200, answer: "gay"),
