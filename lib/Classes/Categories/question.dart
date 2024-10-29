@@ -12,7 +12,7 @@ abstract class Question extends StatelessWidget {
   final String hint;
   final String answer;
 
-  const Question({
+  Question({
     required this.teamFunctions,
     required this.question,
     required this.points,
@@ -23,6 +23,36 @@ abstract class Question extends StatelessWidget {
   });
 
   Widget content(BuildContext context);
+
+  bool completed = false;
+
+  Widget questionUI(BuildContext context) {
+    switch (completed) {
+      case true:
+        return SizedBox(
+          height: SFs(context: context).screenHeight(0.1),
+          width: double.infinity,
+        );
+      case false:
+        return Container(
+          color: Colors.orange,
+          height: SFs(context: context).screenHeight(0.1),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                points.toInt().toString(),
+                style: TextStyle(
+                    fontSize: SFs(context: context).screenHeight(0.05),
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,30 +70,14 @@ abstract class Question extends StatelessWidget {
             ),
           );
         },
-        child: Container(
-          color: Colors.orange,
-          height: SFs(context: context).screenHeight(0.1),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                points.toInt().toString(),
-                style: TextStyle(
-                    fontSize: SFs(context: context).screenHeight(0.05),
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+        child: questionUI(context),
       ),
     );
   }
 }
 
 class ImageQuestion extends Question {
-  const ImageQuestion({
+  ImageQuestion({
     required super.teamFunctions,
     required super.question,
     required super.points,

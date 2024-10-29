@@ -46,12 +46,17 @@ class QuestionScreenState extends State<QuestionScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child:
-            revealAnswer ? Icon(Icons.arrow_back) : Icon(Icons.arrow_forward),
-        onPressed: () => setState(() {
-          revealAnswer = !revealAnswer;
-        }),
-      ),
+          child:
+              revealAnswer ? Icon(Icons.arrow_back) : Icon(Icons.arrow_forward),
+          onPressed: () {
+            setState(() {
+              revealAnswer = !revealAnswer;
+              widget.question.completed = true;
+            });
+            if (widget.teamFunctions.updateState != null) {
+              widget.teamFunctions.updateState!();
+            }
+          }),
       body: Container(
         color: Colors.red,
         child: Column(
