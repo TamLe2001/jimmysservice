@@ -22,12 +22,12 @@ class RulesScreenState extends State<RulesScreen> {
     "The team with the fewest points will end up on Santa's naughty list AND BE PUNISHED!"
   ];
 
-  late ScreenFunctions screenFunctions;
+  late SFs screenFunctions;
 
   @override
   void initState() {
     super.initState();
-    screenFunctions = ScreenFunctions(context: context);
+    screenFunctions = SFs(context: context);
   }
 
   VoidCallback? gotoTeamScreen() {

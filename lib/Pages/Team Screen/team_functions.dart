@@ -260,8 +260,8 @@ class TeamFunctions {
             },
             builder: (context, candidateData, rejectedData) {
               return Container(
-                height: ScreenFunctions(context: context).screenHeight() * 0.5,
-                width: ScreenFunctions(context: context).screenWidth() * 0.2,
+                height: SFs(context: context).screenHeight() * 0.5,
+                width: SFs(context: context).screenWidth() * 0.2,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),

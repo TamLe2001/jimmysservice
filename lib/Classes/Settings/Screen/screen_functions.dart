@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class ScreenFunctions {
+class SFs {
   BuildContext context;
-  ScreenFunctions({required this.context});
+  SFs({required this.context});
 
   double screenWidth() {
     return MediaQuery.of(context).size.width;

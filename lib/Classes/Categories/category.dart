@@ -23,8 +23,7 @@ class Category extends StatelessWidget {
               category,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize:
-                      ScreenFunctions(context: context).screenHeight() * 0.025),
+                  fontSize: SFs(context: context).screenHeight() * 0.025),
             ),
             ...questions,
           ],

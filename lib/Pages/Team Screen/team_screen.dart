@@ -12,7 +12,7 @@ class TeamScreen extends StatefulWidget {
 
 class TeamScreenState extends State<TeamScreen> {
   late TeamFunctions teamFunctions;
-  late ScreenFunctions screenFunctions;
+  late SFs screenFunctions;
   String hoveredText = '';
 
   void _updateHoveredText([String? text]) {
@@ -38,7 +38,7 @@ class TeamScreenState extends State<TeamScreen> {
       hoverUpdater: _updateHoveredText,
       updateState: updateState(),
     );
-    screenFunctions = ScreenFunctions(context: context);
+    screenFunctions = SFs(context: context);
   }
 
   VoidCallback? gotoCutScene() {
