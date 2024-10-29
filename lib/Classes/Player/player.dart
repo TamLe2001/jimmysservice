@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 
 abstract class Player {
   final String name;
@@ -11,7 +12,8 @@ abstract class Player {
     required this.hoverUpdater,
   });
 
-  Widget playerIcon(String label) {
+  Widget playerIcon(BuildContext context, String label) {
+    final sf = SFs(context: context);
     return MouseRegion(
       onEnter: (_) {
         hoverUpdater(name);
@@ -24,8 +26,8 @@ abstract class Player {
         radius: 30,
         child: Text(
           label.toUpperCase(),
-          style: const TextStyle(
-            fontSize: 24,
+          style: TextStyle(
+            fontSize: sf.screenHeight(0.02),
             color: Colors.black,
           ),
         ),

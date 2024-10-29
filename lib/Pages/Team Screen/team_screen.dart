@@ -42,13 +42,17 @@ class TeamScreenState extends State<TeamScreen> {
   }
 
   VoidCallback? gotoCutScene() {
+    final cutscene = Cutscene(
+      teamRed: teamFunctions.teamRed,
+      teamBlue: teamFunctions.teamBlue,
+    );
     if (teamFunctions.teamBlue.members.isNotEmpty &&
         teamFunctions.teamRed.members.isNotEmpty) {
       return () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => Cutscene(),
+            builder: (context) => cutscene,
           ),
         );
       };
@@ -57,7 +61,7 @@ class TeamScreenState extends State<TeamScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Cutscene(),
+          builder: (context) => cutscene,
         ),
       );
     };
@@ -93,7 +97,7 @@ class TeamScreenState extends State<TeamScreen> {
                       teamFunctions.teamScroll(TeamSelect.red),
                       Container(
                         color: Colors.green,
-                        width: screenFunctions.screenWidth() * 0.2,
+                        width: screenFunctions.screenWidth(0.2),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -104,15 +108,14 @@ class TeamScreenState extends State<TeamScreen> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize:
-                                        screenFunctions.screenWidth() * 0.015,
+                                        screenFunctions.screenWidth(0.015),
                                   ),
                                 ),
                                 Text(
                                   hoveredText,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize:
-                                        screenFunctions.screenWidth() * 0.01,
+                                    fontSize: screenFunctions.screenWidth(0.01),
                                   ),
                                 ),
                               ],
@@ -124,16 +127,15 @@ class TeamScreenState extends State<TeamScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
-                                          screenFunctions.screenWidth() * 0.02,
+                                          screenFunctions.screenWidth(0.02),
                                       vertical:
-                                          screenFunctions.screenHeight() * 0.01,
+                                          screenFunctions.screenHeight(0.01),
                                     ),
                                     child: Text(
                                       "Randomize",
                                       style: TextStyle(
                                         fontSize:
-                                            screenFunctions.screenWidth() *
-                                                0.016,
+                                            screenFunctions.screenWidth(0.016),
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -148,16 +150,15 @@ class TeamScreenState extends State<TeamScreen> {
                                   child: Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal:
-                                          screenFunctions.screenWidth() * 0.02,
+                                          screenFunctions.screenWidth(0.02),
                                       vertical:
-                                          screenFunctions.screenHeight() * 0.01,
+                                          screenFunctions.screenHeight(0.01),
                                     ),
                                     child: Text(
                                       "Clear Teams",
                                       style: TextStyle(
                                         fontSize:
-                                            screenFunctions.screenWidth() *
-                                                0.016,
+                                            screenFunctions.screenWidth(0.016),
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -181,13 +182,13 @@ class TeamScreenState extends State<TeamScreen> {
                       child: Card(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                            horizontal: screenFunctions.screenWidth() * 0.02,
-                            vertical: screenFunctions.screenHeight() * 0.001,
+                            horizontal: screenFunctions.screenWidth(0.02),
+                            vertical: screenFunctions.screenHeight(0.001),
                           ),
                           child: Text(
                             "Players: $value",
                             style: TextStyle(
-                              fontSize: screenFunctions.screenWidth() * 0.016,
+                              fontSize: screenFunctions.screenWidth(0.016),
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -197,7 +198,7 @@ class TeamScreenState extends State<TeamScreen> {
                   ),
                 ),
                 Container(
-                  height: screenFunctions.screenHeight() * 0.23,
+                  height: screenFunctions.screenHeight(0.23),
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(10),

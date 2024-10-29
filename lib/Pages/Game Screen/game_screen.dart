@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Categories/category.dart';
 import 'package:jimmysservice/Classes/Categories/question.dart';
+import 'package:jimmysservice/Classes/Team/team.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final Team teamRed;
+  final Team teamBlue;
+  const GameScreen({
+    required this.teamRed,
+    required this.teamBlue,
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => GameScreenState();
@@ -88,18 +95,29 @@ class GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Row(
-            children: categories,
-          ),
-          Container(
-            color: Colors.black,
-            height: 10,
-            width: 10,
-          )
-        ],
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+      ),
+      body: Container(
+        color: Colors.red,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: categories,
+            ),
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  widget.teamRed.teamScreen(context),
+                  widget.teamBlue.teamScreen(context),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

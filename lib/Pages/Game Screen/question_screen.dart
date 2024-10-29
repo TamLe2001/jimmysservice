@@ -54,7 +54,7 @@ class QuestionScreenState extends State<QuestionScreen> {
                     widget.question.question,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: SFs(context: context).screenHeight() * 0.025,
+                        fontSize: SFs(context: context).screenHeight(0.025),
                         color: Colors.white),
                   ),
                 ),
@@ -68,8 +68,7 @@ class QuestionScreenState extends State<QuestionScreen> {
                       widget.question.answer,
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize:
-                              SFs(context: context).screenHeight() * 0.025,
+                          fontSize: SFs(context: context).screenHeight(0.025),
                           color: Colors.white),
                     ),
                   ],

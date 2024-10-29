@@ -205,7 +205,7 @@ class TeamFunctions {
           allPlayers.members.map((p) => p.name).toList(),
         );
 
-        final widget = player.playerIcon(label);
+        final widget = player.playerIcon(context, label);
 
         return Draggable<Player>(
           data: player,
@@ -260,8 +260,8 @@ class TeamFunctions {
             },
             builder: (context, candidateData, rejectedData) {
               return Container(
-                height: SFs(context: context).screenHeight() * 0.5,
-                width: SFs(context: context).screenWidth() * 0.2,
+                height: SFs(context: context).screenHeight(0.5),
+                width: SFs(context: context).screenWidth(0.2),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
@@ -279,7 +279,7 @@ class TeamFunctions {
                       );
 
                       return ListTile(
-                        leading: player.playerIcon(label),
+                        leading: player.playerIcon(context, label),
                         title: Row(
                           children: [
                             Expanded(

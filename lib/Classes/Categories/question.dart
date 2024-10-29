@@ -38,7 +38,7 @@ abstract class Question extends StatelessWidget {
         },
         child: Container(
           color: Colors.orange,
-          height: SFs(context: context).screenHeight() * 0.1,
+          height: SFs(context: context).screenHeight(0.1),
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -47,7 +47,7 @@ abstract class Question extends StatelessWidget {
               Text(
                 "$points",
                 style: TextStyle(
-                    fontSize: SFs(context: context).screenHeight() * 0.05,
+                    fontSize: SFs(context: context).screenHeight(0.05),
                     fontWeight: FontWeight.bold),
               ),
             ],
@@ -100,7 +100,7 @@ class AudioQuestion extends Question {
       },
       child: Icon(
         Icons.play_arrow,
-        size: SFs(context: context).screenHeight() * 0.5,
+        size: SFs(context: context).screenHeight(0.5),
       ),
     );
   }

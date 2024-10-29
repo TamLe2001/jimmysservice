@@ -75,22 +75,22 @@ class RulesScreenState extends State<RulesScreen> {
                 children: [
                   Image.asset('assets/images/santalist.png'),
                   Positioned(
-                    left: screenFunctions.screenWidth() * 0.2,
-                    top: screenFunctions.screenHeight() * 0.4,
+                    left: screenFunctions.screenWidth(0.2),
+                    top: screenFunctions.screenHeight(0.4),
                     child: Image.asset(
                       'assets/images/nice.png',
-                      width: screenFunctions.screenWidth() * 0.3,
-                      height: screenFunctions.screenHeight() * 0.3,
+                      width: screenFunctions.screenWidth(0.3),
+                      height: screenFunctions.screenHeight(0.3),
                       fit: BoxFit.contain,
                     ),
                   ),
                   Positioned(
-                    left: screenFunctions.screenHeight() * 0,
-                    top: screenFunctions.screenHeight() * 0.4,
+                    left: screenFunctions.screenWidth(0),
+                    top: screenFunctions.screenHeight(0.4),
                     child: Image.asset(
                       'assets/images/naughty.png',
-                      width: screenFunctions.screenWidth() * 0.3,
-                      height: screenFunctions.screenHeight() * 0.3,
+                      width: screenFunctions.screenWidth(0.3),
+                      height: screenFunctions.screenHeight(0.3),
                       fit: BoxFit.contain,
                     ),
                   )
