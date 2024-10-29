@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Categories/question.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
+import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 class QuestionScreen extends StatefulWidget {
   final Question question;
+  final TeamFunctions teamFunctions;
 
-  const QuestionScreen({super.key, required this.question});
+  const QuestionScreen({
+    required this.question,
+    required this.teamFunctions,
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => QuestionScreenState();
@@ -13,6 +19,15 @@ class QuestionScreen extends StatefulWidget {
 
 class QuestionScreenState extends State<QuestionScreen> {
   bool revealAnswer = false;
+  bool revealHint = false;
+  double points() {
+    switch (revealHint) {
+      case true:
+        return widget.question.points / 2;
+      case false:
+        return widget.question.points;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,44 +54,101 @@ class QuestionScreenState extends State<QuestionScreen> {
       ),
       body: Container(
         color: Colors.red,
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    widget.question.question,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: SFs(context: context).screenHeight(0.025),
-                        color: Colors.white),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  widget.question.content(context),
-                  if (revealAnswer == true) ...[
-                    Text(
-                      widget.question.answer,
-                      style: TextStyle(
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        widget.question.question,
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: SFs(context: context).screenHeight(0.025),
-                          color: Colors.white),
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                  ],
+                  ),
+                  SizedBox(height: SFs(context: context).screenHeight(0.2)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      widget.question.content(context),
+                      if (revealAnswer)
+                        Text(
+                          widget.question.answer,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: SFs(context: context).screenHeight(0.025),
+                            color: Colors.white,
+                          ),
+                        ),
+                    ],
+                  ),
                 ],
               ),
-              SizedBox()
-            ],
-          ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                widget.teamFunctions.teamRed.teamScreen(context, points()),
+                SizedBox(
+                  width: SFs(context: context).screenWidth(0.1),
+                  child: widget.question.hint.isEmpty
+                      ? Center()
+                      : !revealHint && widget.question.hint.isNotEmpty
+                          ? Center(
+                              child: GestureDetector(
+                                child: Icon(Icons.question_mark),
+                                onTap: () {
+                                  setState(() {
+                                    revealHint = true;
+                                  });
+                                },
+                              ),
+                            )
+                          : Card(
+                              child: Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Hint:",
+                                      style: TextStyle(
+                                        fontSize: SFs(context: context)
+                                            .screenHeight(0.025),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Text(
+                                        widget.question.hint,
+                                        style: TextStyle(
+                                          fontSize: SFs(context: context)
+                                              .screenHeight(0.025),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                ),
+                widget.teamFunctions.teamBlue.teamScreen(context, points()),
+              ],
+            ),
+          ],
         ),
       ),
     );

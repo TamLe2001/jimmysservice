@@ -2,20 +2,23 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Game%20Screen/question_screen.dart';
+import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 abstract class Question extends StatelessWidget {
+  final TeamFunctions teamFunctions;
   final String question;
-  final int points;
+  final double points;
   final String path;
-  final String? hint;
+  final String hint;
   final String answer;
 
   const Question({
+    required this.teamFunctions,
     required this.question,
     required this.points,
     required this.answer,
     required this.path,
-    this.hint,
+    this.hint = '',
     super.key,
   });
 
@@ -32,6 +35,7 @@ abstract class Question extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => QuestionScreen(
                 question: this,
+                teamFunctions: teamFunctions,
               ),
             ),
           );
@@ -60,6 +64,7 @@ abstract class Question extends StatelessWidget {
 
 class ImageQuestion extends Question {
   const ImageQuestion({
+    required super.teamFunctions,
     required super.question,
     required super.points,
     required super.answer,
@@ -76,6 +81,7 @@ class ImageQuestion extends Question {
 
 class AudioQuestion extends Question {
   AudioQuestion({
+    required super.teamFunctions,
     required super.question,
     required super.points,
     required super.answer,
@@ -100,7 +106,7 @@ class AudioQuestion extends Question {
       },
       child: Icon(
         Icons.play_arrow,
-        size: SFs(context: context).screenHeight(0.5),
+        size: SFs(context: context).screenHeight(0.35),
       ),
     );
   }

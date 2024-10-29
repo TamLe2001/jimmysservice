@@ -13,7 +13,6 @@ abstract class Player {
   });
 
   Widget playerIcon(BuildContext context, String label) {
-    final sf = SFs(context: context);
     return MouseRegion(
       onEnter: (_) {
         hoverUpdater(name);
@@ -27,7 +26,7 @@ abstract class Player {
         child: Text(
           label.toUpperCase(),
           style: TextStyle(
-            fontSize: sf.screenHeight(0.02),
+            fontSize: SFs(context: context).screenHeight(0.02),
             color: Colors.black,
           ),
         ),

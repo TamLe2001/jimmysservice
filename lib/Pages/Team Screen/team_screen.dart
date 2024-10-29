@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jimmysservice/Classes/Player/player.dart';
 import 'package:jimmysservice/Pages/Cutscene%20Video/cutscene.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
@@ -46,8 +47,11 @@ class TeamScreenState extends State<TeamScreen> {
       teamRed: teamFunctions.teamRed,
       teamBlue: teamFunctions.teamBlue,
     );
-    if (teamFunctions.teamBlue.members.isNotEmpty &&
-        teamFunctions.teamRed.members.isNotEmpty) {
+    if (teamFunctions.teamRed.members.whereType<Leader>().toList().isNotEmpty &&
+        teamFunctions.teamBlue.members
+            .whereType<Leader>()
+            .toList()
+            .isNotEmpty) {
       return () {
         Navigator.push(
           context,
@@ -57,14 +61,7 @@ class TeamScreenState extends State<TeamScreen> {
         );
       };
     }
-    return () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => cutscene,
-        ),
-      );
-    };
+    return () {};
   }
 
   @override

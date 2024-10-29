@@ -4,7 +4,7 @@ import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 
 class Team {
   List<Player> members = [];
-  int points = 0;
+  final ValueNotifier<double> points = ValueNotifier<double>(0);
 
   int length() {
     return members.length;
@@ -50,8 +50,9 @@ class Team {
     }).toList();
   }
 
-  Widget teamScreen(BuildContext context) {
+  Widget teamScreen(BuildContext context, double adder) {
     final sf = SFs(context: context);
+    final ScrollController scrollController = ScrollController();
 
     return FutureBuilder(
       future: findLeader(),
@@ -63,10 +64,11 @@ class Team {
         } else if (!snapshot.hasData) {
           return Center(child: Text("No data available"));
         }
+
         final leader = snapshot.data!;
 
         return Container(
-          height: double.infinity,
+          height: sf.screenHeight(0.3),
           width: sf.screenWidth(0.2),
           decoration: BoxDecoration(
             color: leader.color,
@@ -96,7 +98,7 @@ class Team {
                         padding: EdgeInsets.all(0.5),
                         child: leader.playerIcon(
                             context, leader.name.substring(0, 3)),
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -106,14 +108,73 @@ class Team {
                 child: Container(
                   color: Colors.white,
                   child: Center(
-                    child: Text(
-                      points.toString(),
-                      style: TextStyle(
-                        fontSize: sf.screenHeight(0.025),
-                        fontWeight: FontWeight.bold,
+                    child: ValueListenableBuilder(
+                      valueListenable: points,
+                      builder: (context, value, child) {
+                        return Text(
+                          value.toInt().toString(),
+                          style: TextStyle(
+                            fontSize: sf.screenHeight(0.025),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: sf.screenHeight(0.01)),
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Scrollbar(
+                    controller: scrollController,
+                    thumbVisibility: true,
+                    thickness: 8,
+                    radius: Radius.circular(4),
+                    child: SingleChildScrollView(
+                      controller: scrollController,
+                      scrollDirection: Axis.horizontal,
+                      child: IntrinsicWidth(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: members
+                              .whereType<Minion>()
+                              .map((e) =>
+                                  e.playerIcon(context, e.name.substring(0, 3)))
+                              .toList(),
+                        ),
                       ),
                     ),
                   ),
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          child: Icon(Icons.add),
+                          onTap: () {
+                            points.value = points.value + (adder);
+                          },
+                        ),
+                        GestureDetector(
+                          child: Icon(Icons.remove),
+                          onTap: () {
+                            points.value = points.value + (-1 * adder);
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
