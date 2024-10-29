@@ -49,7 +49,7 @@ abstract class Question extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "$points",
+                points.toInt().toString(),
                 style: TextStyle(
                     fontSize: SFs(context: context).screenHeight(0.05),
                     fontWeight: FontWeight.bold),
