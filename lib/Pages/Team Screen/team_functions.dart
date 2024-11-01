@@ -14,6 +14,7 @@ class TeamFunctions {
   final BuildContext context;
   final ValueChanged<String?> hoverUpdater;
   final Function? updateState;
+  static late TeamFunctions globalTeam;
 
   TeamFunctions(
       {required this.context, required this.hoverUpdater, this.updateState});
@@ -28,6 +29,10 @@ class TeamFunctions {
     if (updateState != null) {
       updateState!();
     }
+  }
+
+  static Future create(TeamFunctions team) async {
+    globalTeam = team;
   }
 
   Team totalPlayers() {

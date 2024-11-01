@@ -4,13 +4,18 @@ import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 abstract class Player {
   final String name;
   final Color color;
-  final ValueChanged<String?> hoverUpdater;
+  ValueChanged<String?> hoverUpdater;
 
   Player({
     required this.name,
     required this.color,
     required this.hoverUpdater,
   });
+
+  Player updateHover(ValueChanged<String?> newHover) {
+    hoverUpdater = newHover;
+    return this;
+  }
 
   Widget playerIcon(BuildContext context, String label) {
     return MouseRegion(

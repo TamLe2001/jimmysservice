@@ -16,10 +16,7 @@ class Cutscene extends StatelessWidget {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => GameScreen(
-            teamRed: teamRed,
-            teamBlue: teamBlue,
-          ),
+          builder: (context) => GameScreen(),
         ),
       );
     };

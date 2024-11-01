@@ -53,11 +53,17 @@ class TeamScreenState extends State<TeamScreen> {
             .toList()
             .isNotEmpty) {
       return () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => cutscene,
-          ),
+        TeamFunctions.create(teamFunctions).then(
+          (onValue) {
+            if (mounted) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => cutscene,
+                ),
+              );
+            }
+          },
         );
       };
     }

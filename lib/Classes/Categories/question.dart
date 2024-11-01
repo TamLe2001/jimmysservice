@@ -2,10 +2,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Game%20Screen/question_screen.dart';
-import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 abstract class Question extends StatelessWidget {
-  final TeamFunctions teamFunctions;
   final String question;
   final double points;
   final String path;
@@ -13,7 +11,6 @@ abstract class Question extends StatelessWidget {
   final String answer;
 
   Question({
-    required this.teamFunctions,
     required this.question,
     required this.points,
     required this.answer,
@@ -65,7 +62,6 @@ abstract class Question extends StatelessWidget {
             MaterialPageRoute(
               builder: (context) => QuestionScreen(
                 question: this,
-                teamFunctions: teamFunctions,
               ),
             ),
           );
@@ -78,7 +74,6 @@ abstract class Question extends StatelessWidget {
 
 class ImageQuestion extends Question {
   ImageQuestion({
-    required super.teamFunctions,
     required super.question,
     required super.points,
     required super.answer,
@@ -95,7 +90,6 @@ class ImageQuestion extends Question {
 
 class AudioQuestion extends Question {
   AudioQuestion({
-    required super.teamFunctions,
     required super.question,
     required super.points,
     required super.answer,

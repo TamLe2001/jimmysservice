@@ -5,11 +5,9 @@ import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 class QuestionScreen extends StatefulWidget {
   final Question question;
-  final TeamFunctions teamFunctions;
 
   const QuestionScreen({
     required this.question,
-    required this.teamFunctions,
     super.key,
   });
 
@@ -53,8 +51,8 @@ class QuestionScreenState extends State<QuestionScreen> {
               revealAnswer = !revealAnswer;
               widget.question.completed = true;
             });
-            if (widget.teamFunctions.updateState != null) {
-              widget.teamFunctions.updateState!();
+            if (TeamFunctions.globalTeam.updateState != null) {
+              TeamFunctions.globalTeam.updateState!();
             }
           }),
       body: Container(
@@ -106,7 +104,7 @@ class QuestionScreenState extends State<QuestionScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                widget.teamFunctions.teamRed.teamScreen(context, points()),
+                TeamFunctions.globalTeam.teamRed.teamScreen(context, points()),
                 SizedBox(
                   width: SFs(context: context).screenWidth(0.1),
                   child: widget.question.hint.isEmpty
@@ -150,7 +148,7 @@ class QuestionScreenState extends State<QuestionScreen> {
                               ),
                             ),
                 ),
-                widget.teamFunctions.teamBlue.teamScreen(context, points()),
+                TeamFunctions.globalTeam.teamBlue.teamScreen(context, points()),
               ],
             ),
           ],

@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Categories/category.dart';
 import 'package:jimmysservice/Classes/Categories/question.dart';
-import 'package:jimmysservice/Classes/Player/player.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
-import 'package:jimmysservice/Classes/Team/team.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 class GameScreen extends StatefulWidget {
-  final Team teamRed;
-  final Team teamBlue;
   const GameScreen({
-    required this.teamRed,
-    required this.teamBlue,
     super.key,
   });
 
@@ -20,7 +14,6 @@ class GameScreen extends StatefulWidget {
 }
 
 class GameScreenState extends State<GameScreen> {
-  late TeamFunctions teamFunctions;
   final ValueNotifier<String> hoveredText = ValueNotifier<String>('');
 
   void _updateHoveredText([String? text]) {
@@ -29,55 +22,29 @@ class GameScreenState extends State<GameScreen> {
 
   Function updateState() {
     return () {
-      setState(() {
-        teamFunctions.teamBlue.members = teamFunctions.teamBlue.members;
-        teamFunctions.teamRed.members = teamFunctions.teamRed.members;
-      });
+      setState(() {});
     };
   }
 
   @override
   void initState() {
     super.initState();
-    teamFunctions = TeamFunctions(
+    final tempTeam = TeamFunctions(
       context: context,
       hoverUpdater: _updateHoveredText,
       updateState: updateState(),
     );
-    teamFunctions.teamRed = widget.teamRed;
-    teamFunctions.teamBlue = widget.teamBlue;
-
-    teamFunctions.teamRed.members = teamFunctions.teamRed.members.map((member) {
-      if (member is Leader) {
-        return Leader(
-            name: member.name,
-            color: member.color,
-            hoverUpdater: _updateHoveredText);
-      } else {
-        return Minion(
-            name: member.name,
-            color: member.color,
-            hoverUpdater: _updateHoveredText);
-      }
+    tempTeam.teamRed.members = TeamFunctions.globalTeam.teamRed.members;
+    tempTeam.teamBlue.members = TeamFunctions.globalTeam.teamBlue.members;
+    tempTeam.teamRed.members =
+        TeamFunctions.globalTeam.teamRed.members.map((member) {
+      return member.updateHover(_updateHoveredText);
     }).toList();
-    teamFunctions.teamBlue.members =
-        teamFunctions.teamBlue.members.map((member) {
-      if (member is Leader) {
-        return Leader(
-            name: member.name,
-            color: member.color,
-            hoverUpdater: _updateHoveredText);
-      } else {
-        return Minion(
-            name: member.name,
-            color: member.color,
-            hoverUpdater: _updateHoveredText);
-      }
+    tempTeam.teamBlue.members =
+        TeamFunctions.globalTeam.teamBlue.members.map((member) {
+      return member.updateHover(_updateHoveredText);
     }).toList();
-  }
-
-  TeamFunctions getTeamFunction() {
-    return teamFunctions;
+    TeamFunctions.globalTeam = tempTeam;
   }
 
   List<Category> categories() {
@@ -86,35 +53,30 @@ class GameScreenState extends State<GameScreen> {
         category: "Combined people",
         questions: [
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "Who am I?",
             points: 200,
             answer: "Kevin Luu & Philip",
             path: "guesswho1.png",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "Who am I?",
             points: 400,
             answer: "Sofie & Danny",
             path: "guesswho2.png",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "Who am I?",
             points: 600,
             answer: "Casper & Johnny Sins",
             path: "guesswho3.png",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "Who am I?",
             points: 800,
             answer: "Abdi & James Charles",
             path: "guesswho4.png",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "Who am I?",
             points: 1000,
             answer: "Helene, Jeanete & Marie",
@@ -125,38 +87,17 @@ class GameScreenState extends State<GameScreen> {
       Category(
         category: "Gaming",
         questions: [
-          ImageQuestion(
-              teamFunctions: teamFunctions,
-              question: "HEj",
-              points: 200,
-              answer: "gay"),
-          ImageQuestion(
-              teamFunctions: teamFunctions,
-              question: "HEj",
-              points: 400,
-              answer: "gay"),
-          ImageQuestion(
-              teamFunctions: teamFunctions,
-              question: "HEj",
-              points: 600,
-              answer: "gay"),
-          ImageQuestion(
-              teamFunctions: teamFunctions,
-              question: "HEj",
-              points: 800,
-              answer: "gay"),
-          ImageQuestion(
-              teamFunctions: teamFunctions,
-              question: "HEj",
-              points: 1000,
-              answer: "gay"),
+          ImageQuestion(question: "HEj", points: 200, answer: "gay"),
+          ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+          ImageQuestion(question: "HEj", points: 600, answer: "gay"),
+          ImageQuestion(question: "HEj", points: 800, answer: "gay"),
+          ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
         ],
       ),
       Category(
         category: "Christmas Songs",
         questions: [
           AudioQuestion(
-            teamFunctions: teamFunctions,
             question: "What Christmas song is this?",
             points: 200,
             answer: "Santa tell me by Ariana Grande",
@@ -164,25 +105,21 @@ class GameScreenState extends State<GameScreen> {
             path: "santatellme.mp3",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 400,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 600,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 800,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 1000,
             answer: "gay",
@@ -193,31 +130,26 @@ class GameScreenState extends State<GameScreen> {
         category: "Anime",
         questions: [
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 200,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 400,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 600,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 800,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 1000,
             answer: "gay",
@@ -228,31 +160,26 @@ class GameScreenState extends State<GameScreen> {
         category: "2000's Nostalgia",
         questions: [
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 200,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 400,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 600,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 800,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 1000,
             answer: "gay",
@@ -263,31 +190,26 @@ class GameScreenState extends State<GameScreen> {
         category: "Korean Pop Culture",
         questions: [
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 200,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 400,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 600,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 800,
             answer: "gay",
           ),
           ImageQuestion(
-            teamFunctions: teamFunctions,
             question: "HEj",
             points: 1000,
             answer: "gay",
@@ -315,7 +237,7 @@ class GameScreenState extends State<GameScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  teamFunctions.teamRed.teamScreen(context, 100),
+                  TeamFunctions.globalTeam.teamRed.teamScreen(context, 100),
                   SizedBox(
                     width: SFs(context: context).screenWidth(0.1),
                     child: Center(
@@ -329,7 +251,7 @@ class GameScreenState extends State<GameScreen> {
                       ),
                     ),
                   ),
-                  teamFunctions.teamBlue.teamScreen(context, 100),
+                  TeamFunctions.globalTeam.teamBlue.teamScreen(context, 100),
                 ],
               ),
             )
