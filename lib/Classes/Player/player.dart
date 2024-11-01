@@ -27,7 +27,7 @@ abstract class Player {
       },
       child: CircleAvatar(
         backgroundColor: color,
-        radius: 30,
+        radius: SFs(context: context).screenHeight(0.025),
         child: Text(
           label.toUpperCase(),
           style: TextStyle(
