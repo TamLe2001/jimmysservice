@@ -126,6 +126,7 @@ class Team {
               SizedBox(height: sf.screenHeight(0.01)),
               Container(
                 color: Colors.white,
+                width: sf.screenWidth(0.180),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Scrollbar(
