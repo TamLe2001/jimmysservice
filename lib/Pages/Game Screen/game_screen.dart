@@ -88,10 +88,28 @@ class GameScreenState extends State<GameScreen> {
         category: "Gaming",
         questions: [
           ImageQuestion(question: "HEj", points: 200, answer: "gay"),
-          ImageQuestion(question: "HEj", points: 400, answer: "gay"),
+          AudioQuestion(
+            question: "Hvor kommer denne lyd fra?",
+            points: 400,
+            answer: "Roblox Dress to Impress",
+            hint: "my name is kenny",
+            path: "games.mp2",
+          ),
           ImageQuestion(question: "HEj", points: 600, answer: "gay"),
-          ImageQuestion(question: "HEj", points: 800, answer: "gay"),
-          ImageQuestion(question: "HEj", points: 1000, answer: "gay"),
+          AudioQuestion(
+            question: "Hvor kommer denne lyd fra?",
+            points: 800,
+            answer: "Pokemon Red Evolution",
+            hint: "kenny gei",
+            path: "games4.mp3",
+          ),
+          AudioQuestion(
+            question: "Hvor kommer denne lyd fra?",
+            points: 1000,
+            answer: "Super Mario Galaxy OP Theme",
+            hint: "kenny gei",
+            path: "games5.mp3",
+          ),
         ],
       ),
       Category(
@@ -104,36 +122,42 @@ class GameScreenState extends State<GameScreen> {
             hint: "my name is kenny",
             path: "santatellme.mp3",
           ),
-          ImageQuestion(
-            question: "HEj",
-            points: 400,
-            answer: "gay",
-          ),
-          ImageQuestion(
-            question: "HEj",
-            points: 600,
-            answer: "gay",
-          ),
-          ImageQuestion(
-            question: "HEj",
+          AudioQuestion(
+              question: "What is the artist name?",
+              points: 400,
+              answer: "WHAM",
+              hint: "kennygei",
+              path: "lastchrismas.mp3"),
+          AudioQuestion(
+              question: "Guess the Lyrics",
+              points: 600,
+              answer: "YES",
+              hint: "Kenny gei",
+              path: "mistletoe.mp3"),
+          AudioQuestion(
+            question: "What Christmas song is this?",
             points: 800,
-            answer: "gay",
+            answer: "Nu er det Jul",
+            hint: "yes",
+            path: "nudetjul.mp3",
           ),
-          ImageQuestion(
-            question: "HEj",
-            points: 1000,
-            answer: "gay",
-          ),
+          AudioQuestion(
+              question: "How old is the artist?",
+              points: 1000,
+              answer: "gay",
+              hint: "is is not twelve",
+              path: "alliwantforchristmas.mp3"),
         ],
       ),
       Category(
         category: "Anime",
         questions: [
-          ImageQuestion(
-            question: "HEj",
-            points: 200,
-            answer: "gay",
-          ),
+          AudioQuestion(
+              question: "Guess the Anime",
+              points: 200,
+              answer: "Sword Art Online",
+              hint: "MMORPG HAREM",
+              path: "anime1.mp3"),
           ImageQuestion(
             question: "HEj",
             points: 400,
@@ -159,31 +183,36 @@ class GameScreenState extends State<GameScreen> {
       Category(
         category: "2000's Nostalgia",
         questions: [
-          ImageQuestion(
-            question: "HEj",
+          AudioQuestion(
+            question: "Hvor kommer denne lyd fra?",
             points: 200,
-            answer: "gay",
+            answer: "Skype Call",
+            hint: "kenny",
+            path: "nostalgia1.mp3",
           ),
           ImageQuestion(
-            question: "HEj",
+            question: "Hvad hedder den her Bayblade?",
             points: 400,
-            answer: "gay",
+            answer: "Pegasus",
           ),
-          ImageQuestion(
-            question: "HEj",
-            points: 600,
-            answer: "gay",
-          ),
-          ImageQuestion(
-            question: "HEj",
-            points: 800,
-            answer: "gay",
-          ),
-          ImageQuestion(
-            question: "HEj",
-            points: 1000,
-            answer: "gay",
-          ),
+          AudioQuestion(
+              question: "Hvor kommer denne lyd fra?",
+              points: 600,
+              answer: "Playstation 2 Startup",
+              hint: "gei",
+              path: "nostalgia3.mp3"),
+          AudioQuestion(
+              question: "Hvor kommer denne lyd fra?",
+              points: 800,
+              answer: "Regular Show OP",
+              hint: "gei",
+              path: "nostalgia4.mp3"),
+          AudioQuestion(
+              question: "Hvor kommer denne lyd fra?",
+              points: 1000,
+              answer: "Super Smash Bros OP",
+              hint: "gei",
+              path: "nostalgia5.mp3"),
         ],
       ),
       Category(
@@ -209,10 +238,12 @@ class GameScreenState extends State<GameScreen> {
             points: 800,
             answer: "gay",
           ),
-          ImageQuestion(
-            question: "HEj",
+          AudioQuestion(
+            question: "What is the thier name?",
             points: 1000,
-            answer: "gay",
+            answer: "H.O.T",
+            hint: "FIRE",
+            path: "kpop5.mp3",
           ),
         ],
       ),
