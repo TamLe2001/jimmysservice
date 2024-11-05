@@ -10,6 +10,7 @@ abstract class Question extends StatefulWidget {
   final String path;
   final String hint;
   final String answer;
+  static int? counter;
 
   const Question({
     required this.question,
@@ -20,6 +21,11 @@ abstract class Question extends StatefulWidget {
     super.key,
   });
 
+  void countUp() {
+    counter ??= 0;
+    counter = counter! + 1;
+  }
+
   Widget content(BuildContext context);
 
   @override
@@ -27,6 +33,12 @@ abstract class Question extends StatefulWidget {
 }
 
 class QuestionState extends State<Question> {
+  @override
+  void initState() {
+    super.initState();
+    widget.countUp();
+  }
+
   bool completed = false;
 
   Function complete() {
