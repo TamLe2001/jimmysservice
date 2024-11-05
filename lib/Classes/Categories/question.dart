@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Game%20Screen/question_screen.dart';
 
-abstract class Question extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
+
+abstract class Question extends StatefulWidget {
   final String question;
   final double points;
   final String path;
   final String hint;
   final String answer;
 
-  Question({
+  const Question({
     required this.question,
     required this.points,
     required this.answer,
@@ -21,34 +24,70 @@ abstract class Question extends StatelessWidget {
 
   Widget content(BuildContext context);
 
+  @override
+  QuestionState createState() => QuestionState();
+}
+
+class QuestionState extends State<Question> {
   bool completed = false;
 
+  Function complete() {
+    return () {
+      setState(() {
+        completed = true;
+      });
+      if (TeamFunctions.globalTeam.updateState != null) {
+        TeamFunctions.globalTeam.updateState!();
+        print("updateState $completed");
+      }
+    };
+  }
+
+  double height() {
+    return SFs(context: context).screenHeight(0.1);
+  }
+
+  double width() {
+    return double.infinity;
+  }
+
   Widget questionUI(BuildContext context) {
-    switch (completed) {
-      case true:
-        return SizedBox(
-          height: SFs(context: context).screenHeight(0.1),
-          width: double.infinity,
-        );
-      case false:
-        return Container(
-          color: Colors.orange,
-          height: SFs(context: context).screenHeight(0.1),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                points.toInt().toString(),
-                style: TextStyle(
+    return completed
+        ? SizedBox(
+            height: height(),
+            width: width(),
+            child: Container(
+              color: Colors.grey.withOpacity(0.5),
+              child: Center(
+                child: Text(
+                  "Done",
+                  style: TextStyle(
                     fontSize: SFs(context: context).screenHeight(0.05),
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black.withOpacity(0.5),
+                  ),
+                ),
               ),
-            ],
-          ),
-        );
-    }
+            ),
+          )
+        : Container(
+            color: Colors.orange,
+            height: height(),
+            width: width(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.points.toInt().toString(),
+                  style: TextStyle(
+                    fontSize: SFs(context: context).screenHeight(0.05),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 
   @override
@@ -61,7 +100,8 @@ abstract class Question extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) => QuestionScreen(
-                question: this,
+                question: widget,
+                questionComplete: complete(),
               ),
             ),
           );

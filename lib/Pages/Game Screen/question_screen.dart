@@ -5,9 +5,11 @@ import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 class QuestionScreen extends StatefulWidget {
   final Question question;
+  final Function questionComplete;
 
   const QuestionScreen({
     required this.question,
+    required this.questionComplete,
     super.key,
   });
 
@@ -49,7 +51,7 @@ class QuestionScreenState extends State<QuestionScreen> {
           onPressed: () {
             setState(() {
               revealAnswer = !revealAnswer;
-              widget.question.completed = true;
+              widget.questionComplete();
             });
             if (TeamFunctions.globalTeam.updateState != null) {
               TeamFunctions.globalTeam.updateState!();
