@@ -36,7 +36,6 @@ class QuestionState extends State<Question> {
       });
       if (TeamFunctions.globalTeam.updateState != null) {
         TeamFunctions.globalTeam.updateState!();
-        print("updateState $completed");
       }
     };
   }
@@ -111,7 +110,7 @@ class QuestionState extends State<Question> {
 }
 
 class ImageQuestion extends Question {
-  ImageQuestion({
+  const ImageQuestion({
     required super.question,
     required super.points,
     required super.answer,
