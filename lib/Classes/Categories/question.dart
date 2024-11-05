@@ -2,8 +2,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Settings/Screen/screen_functions.dart';
 import 'package:jimmysservice/Pages/Game%20Screen/question_screen.dart';
-
-import 'package:flutter/material.dart';
 import 'package:jimmysservice/Pages/Team%20Screen/team_functions.dart';
 
 abstract class Question extends StatefulWidget {
