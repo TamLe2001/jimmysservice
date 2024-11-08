@@ -104,6 +104,14 @@ class QuestionState extends State<Question> {
     return Padding(
       padding: EdgeInsets.all(10),
       child: GestureDetector(
+        onLongPress: () {
+          setState(() {
+            completed = !completed;
+          });
+          if (TeamFunctions.globalTeam.updateState != null) {
+            TeamFunctions.globalTeam.updateState!();
+          }
+        },
         onTap: () {
           Navigator.push(
             context,
