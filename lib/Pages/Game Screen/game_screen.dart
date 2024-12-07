@@ -84,7 +84,7 @@ class GameScreenState extends State<GameScreen> {
             question: "Who am I?",
             points: 1000,
             answer: "Helene, Jeanete & Marie",
-            hint: "Det er tre personer på billedet",
+            hint: "Der er tre personer på billedet",
             path: "guesswho5.png",
           ),
         ],
@@ -199,6 +199,7 @@ class GameScreenState extends State<GameScreen> {
             points: 800,
             answer: "Naruto, One Piece og Bleach",
             hint: "One Piece, Naruto og ?",
+            path: "anime4.png",
           ),
           ImageQuestion(
             question: "Who is the anime director?",
@@ -269,11 +270,13 @@ class GameScreenState extends State<GameScreen> {
             path: "kpop2.png",
           ),
           ImageQuestion(
-              question:
-                  "What is the medical name of the popular nose-job surgery?",
-              points: 600,
-              answer: "rhinoscopy",
-              hint: "Nærehorn"),
+            question:
+                "What is the medical name of the popular nose-job surgery?",
+            points: 600,
+            answer: "rhinoscopy",
+            hint: "Nærehorn",
+            path: "kpop3.png",
+          ),
           ImageQuestion(
             question: "What is the name of this K-pop group?",
             points: 800,
