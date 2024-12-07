@@ -21,13 +21,10 @@ class Cutscene extends StatefulWidget {
 class CutsceneState extends State<Cutscene> {
   late final player = Player();
   late final controller = VideoController(player);
-  bool _isVideoEnded = false;
-  bool _isInitialized = false;
 
   @override
   void initState() {
     super.initState();
-
     player.open(Media('asset:///assets/video/smash.mp4'));
   }
 
