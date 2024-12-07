@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jimmysservice/Classes/Team/team.dart';
 import 'package:jimmysservice/Pages/Game%20Screen/game_screen.dart';
-import 'package:video_player/video_player.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:media_kit_video/media_kit_video.dart';
 
 class Cutscene extends StatefulWidget {
   final Team teamRed;
@@ -18,7 +19,8 @@ class Cutscene extends StatefulWidget {
 }
 
 class CutsceneState extends State<Cutscene> {
-  late VideoPlayerController _controller;
+  late final player = Player();
+  late final controller = VideoController(player);
   bool _isVideoEnded = false;
   bool _isInitialized = false;
 
@@ -26,29 +28,12 @@ class CutsceneState extends State<Cutscene> {
   void initState() {
     super.initState();
 
-    _controller = VideoPlayerController.asset('assets/video/smash.mp4')
-      ..initialize().then((_) {
-        if (mounted) {
-          setState(() {
-            _isInitialized = true;
-            _controller.play();
-          });
-        }
-      }).catchError((error) {
-        print('Error initializing video: $error');
-      });
-
-    _controller.addListener(() {
-      if (_controller.value.hasError) {
-        print('Video Player Error: ${_controller.value.errorDescription}');
-      }
-    });
-    print("Jimmy ${_controller.dataSource}");
+    player.open(Media('asset:///assets/video/smash.mp4'));
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    player.dispose();
     super.dispose();
   }
 
@@ -69,12 +54,12 @@ class CutsceneState extends State<Cutscene> {
         child: Text("Skip"),
       ),
       body: Center(
-        child: _isInitialized
-            ? AspectRatio(
-                aspectRatio: _controller.value.aspectRatio,
-                child: VideoPlayer(_controller),
-              )
-            : CircularProgressIndicator(),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.width * 9.0 / 16.0,
+          // Use [Video] widget to display video output.
+          child: Video(controller: controller),
+        ),
       ),
     );
   }
