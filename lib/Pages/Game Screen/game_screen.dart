@@ -56,7 +56,7 @@ class GameScreenState extends State<GameScreen> {
             question: "Who am I?",
             points: 200,
             answer: "Kevin Luu & Philip",
-            hint: "Martins rigtige forældre",
+            hint: "Martins daddys",
             path: "guesswho1.png",
           ),
           ImageQuestion(
@@ -149,7 +149,8 @@ class GameScreenState extends State<GameScreen> {
           AudioQuestion(
             question: "Guess the Lyrics (frem til omklædet)",
             points: 600,
-            answer: "mistletoeanswer.mp3",
+            answer:
+                "I don't wanna miss out on the holiday but I can't stop staring at your face I should be playing in the winter snow but I'ma be under the mistletoe",
             hint: "I don't wanna miss out on the holidays, but...",
             path: "mistletoe.mp3",
           ),
