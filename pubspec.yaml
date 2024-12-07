@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   audioplayers: ^6.1.0
+  video_player: ^2.5.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -93,6 +94,7 @@ flutter:
     - assets/audio/nostalgia4.mp3
     - assets/audio/nostalgia5.mp3
     - assets/audio/nudetjul.mp3
+    - assets/video/smash.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
