@@ -33,7 +33,7 @@ class QuestionScreenState extends State<QuestionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: const Color.fromARGB(255, 40, 151, 30),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
@@ -58,7 +58,7 @@ class QuestionScreenState extends State<QuestionScreen> {
             }
           }),
       body: Container(
-        color: Colors.red,
+        color: const Color.fromARGB(255, 40, 151, 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -68,7 +68,7 @@ class QuestionScreenState extends State<QuestionScreen> {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: const Color.fromARGB(255, 223, 71, 71),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Padding(
@@ -78,7 +78,7 @@ class QuestionScreenState extends State<QuestionScreen> {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: SFs(context: context).screenHeight(0.025),
-                          color: Colors.white,
+                          color: Colors.black,
                         ),
                       ),
                     ),

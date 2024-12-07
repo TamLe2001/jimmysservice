@@ -80,7 +80,7 @@ class QuestionState extends State<Question> {
             ),
           )
         : Container(
-            color: Colors.orange,
+            color: const Color.fromARGB(255, 223, 71, 71),
             height: height(),
             width: width(),
             child: Column(
