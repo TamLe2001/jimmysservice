@@ -89,14 +89,20 @@ class QuestionScreenState extends State<QuestionScreen> {
                     children: [
                       widget.question.content(context),
                       if (revealAnswer)
-                        Text(
-                          widget.question.answer,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: SFs(context: context).screenHeight(0.025),
-                            color: Colors.white,
+                        Flexible(
+                            child: SizedBox(
+                          width: SFs(context: context).screenWidth(0.25),
+                          child: Text(
+                            widget.question.answer,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  SFs(context: context).screenHeight(0.025),
+                              color: Colors.white,
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
-                        ),
+                        )),
                     ],
                   ),
                 ],
