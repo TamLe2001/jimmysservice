@@ -200,8 +200,7 @@ class GameScreenState extends State<GameScreen> {
             hint: "One Piece, Naruto og ?",
           ),
           ImageQuestion(
-            question:
-                "In this anime film, two teenagers mysteriously switch bodies and communicate through messages. This movie was directed by this famous Japanese animator. Who is he?",
+            question: "Who is the anime director?",
             points: 1000,
             answer: "Makoto Shinkai",
             hint: "Hans fornavn er Makoto",
