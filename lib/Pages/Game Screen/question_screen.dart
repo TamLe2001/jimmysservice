@@ -66,27 +66,27 @@ class QuestionScreenState extends State<QuestionScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 223, 71, 71),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        widget.question.question,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: SFs(context: context).screenHeight(0.025),
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: SFs(context: context).screenHeight(0.2)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 223, 71, 71),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            widget.question.question,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  SFs(context: context).screenHeight(0.025),
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
                       widget.question.content(context),
                       if (revealAnswer)
                         Text(
