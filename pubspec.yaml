@@ -64,38 +64,26 @@ flutter:
     - assets/images/nice.png
     - assets/images/naughty.png
     - assets/images/frontpage.png
-    - assets/images/guesswho1.png
-    - assets/images/guesswho2.png
-    - assets/images/guesswho3.png
-    - assets/images/guesswho4.png
-    - assets/images/guesswho5.png
-    - assets/images/kpop1.png
-    - assets/images/kpop2.png
-    - assets/images/kpop3.png
-    - assets/images/kpop4.png
-    - assets/images/anime2.png
-    - assets/images/anime3.png
-    - assets/images/anime4.png
-    - assets/images/anime5.png
-    - assets/images/games1.png
-    - assets/images/games3.png
-    - assets/images/nostalgia2.png
-    - assets/audio/background_music.mp3
-    - assets/audio/santatellme.mp3
-    - assets/audio/alliwantforchristmas.mp3
-    - assets/audio/anime1.mp3
-    - assets/audio/games2.mp3
-    - assets/audio/games4.mp3
-    - assets/audio/games5.mp3
-    - assets/audio/kpop5.mp3
-    - assets/audio/lastchristmas.mp3
-    - assets/audio/mistletoe.mp3
-    - assets/audio/mistletoeanswer.mp3
-    - assets/audio/nostalgia1.mp3
-    - assets/audio/nostalgia3.mp3
-    - assets/audio/nostalgia4.mp3
-    - assets/audio/nostalgia5.mp3
-    - assets/audio/nudetjul.mp3
+    - assets/audio/Year1.mp3
+    - assets/images/Year2.png
+    - assets/images/Year3.png
+    - assets/images/Year4.png
+    - assets/images/Year5.png
+    - assets/images/sanrio1.png
+    - assets/images/sanrio 2.png
+    - assets/images/sanrio3.png
+    - assets/images/sanrio4.png
+    - assets/images/sanrio5.png
+    - assets/images/theworld1.png
+    - assets/images/theworld2.png
+    - assets/images/theworld3.png
+    - assets/images/theworld4.png
+    - assets/images/theworld5.png
+    - assets/images/birthdaygirl1.png
+    - assets/images/birthdaygirl2.png
+    - assets/images/birthdaygirl3.png
+    - assets/images/birthdaygirl4.png
+    - assets/images/birthdaygirl5.png
     - assets/video/smash.mp4
 
   # An image asset can refer to one or more resolution-specific "variants", see

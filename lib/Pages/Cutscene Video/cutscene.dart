@@ -25,6 +25,7 @@ class CutsceneState extends State<Cutscene> {
   @override
   void initState() {
     super.initState();
+
     player.open(Media('asset:///assets/video/smash.mp4'));
   }
 
